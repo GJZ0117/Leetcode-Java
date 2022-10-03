@@ -57,4 +57,5 @@ public class N_Queens {
         }
         return true;
     }
+
 }
