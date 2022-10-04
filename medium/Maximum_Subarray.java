@@ -13,7 +13,7 @@ public class Maximum_Subarray {
 
     public static int maxSubArray(int[] nums) {
         int curSum = 0;
-        int maxSum = -1000;
+        int maxSum = -100000;
         for (int i = 0; i < nums.length; i++) {
             if (curSum <= 0) {
                 curSum = nums[i];
