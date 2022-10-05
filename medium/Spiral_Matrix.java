@@ -9,7 +9,12 @@ import java.util.List;
 
 public class Spiral_Matrix {
 
-    public List<Integer> spiralOrder(int[][] matrix) {
+    public static void main(String[] args) {
+        int[][] nums = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
+        System.out.println(spiralOrder(nums));
+    }
+
+    public static List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> ans = new ArrayList<>();
         int m = matrix.length;
         int n = matrix[0].length;
@@ -20,30 +25,38 @@ public class Spiral_Matrix {
         int j = 0;
 
         while (totalNum > 0) {
-            while (j < n && temp[i][j] != 0) {
+            while (j < n && temp[i][j] != 1) {
                 ans.add(matrix[i][j]);
                 temp[i][j] = 1;
                 totalNum--;
                 j++;
             }
-            while (i < m && temp[i][j] != 0) {
+            j--;
+            i++;
+            while (i < m && temp[i][j] != 1) {
                 ans.add(matrix[i][j]);
                 temp[i][j] = 1;
                 totalNum--;
                 i++;
             }
-            while (j >= 0 && temp[i][j] != 0) {
+            i--;
+            j--;
+            while (j >= 0 && temp[i][j] != 1) {
                 ans.add(matrix[i][j]);
                 temp[i][j] = 1;
                 totalNum--;
                 j--;
             }
-            while (i >= 0 && temp[i][j] != 0) {
+            j++;
+            i--;
+            while (i >= 0 && temp[i][j] != 1) {
                 ans.add(matrix[i][j]);
                 temp[i][j] = 1;
                 totalNum--;
                 i--;
             }
+            i++;
+            j++;
         }
 
         return ans;
