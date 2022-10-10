@@ -13,9 +13,9 @@ public class Minimum_Window_Substring {
     public static void main(String[] args) {
         String s = "ebbancf";
         String t = "abc";
-        Scanner sc = new Scanner(System.in);
-        s = sc.nextLine();
-        t = sc.nextLine();
+        //Scanner sc = new Scanner(System.in);
+        //s = sc.nextLine();
+        //t = sc.nextLine();
         System.out.println(minWindow(s, t));
     }
 
