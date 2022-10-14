@@ -1,5 +1,6 @@
 package medium;
 
+
 /**
  * 424. Longest Repeating Character Replacement
  */
