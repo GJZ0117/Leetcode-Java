@@ -21,9 +21,11 @@ public class Zigzag_Conversion {
                 sb[row].append(s.charAt(i));
             }
         }
+
         for (int row = 1; row < numRows; row++) { //append all stringBuilder to sb[0]
             sb[0].append(sb[row]);
         }
+
         return sb[0].toString();
     }
 }
