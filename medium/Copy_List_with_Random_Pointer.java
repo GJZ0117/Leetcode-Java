@@ -1,6 +1,6 @@
 package medium;
 
-/*
+
 class Node {
     int val;
     Node next;
@@ -12,13 +12,13 @@ class Node {
         this.random = null;
     }
 }
-*/
+
 
 /**
  * 138. Copy List with Random Pointer
  */
 
-import org.w3c.dom.Node;
+
 
 public class Copy_List_with_Random_Pointer {
     public Node copyRandomList(Node head) {
