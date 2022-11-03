@@ -1,12 +1,12 @@
 package medium;
 
 
-class Node {
+class CNode {
     int val;
-    Node next;
-    Node random;
+    CNode next;
+    CNode random;
 
-    public Node(int val) {
+    public CNode(int val) {
         this.val = val;
         this.next = null;
         this.random = null;
@@ -21,13 +21,13 @@ class Node {
 
 
 public class Copy_List_with_Random_Pointer {
-    public Node copyRandomList(Node head) {
+    public CNode copyRandomList(CNode head) {
         if (head == null) {
             return null;
         }
-        Node cur = head;
+        CNode cur = head;
         while (cur != null) { //create one node and insert it after each node in the list (1->1'->2->2'->3->3'->null)
-            Node temp = new Node(cur.val);
+            CNode temp = new CNode(cur.val);
             temp.next = cur.next;
             cur.next = temp;
             cur = temp.next;
@@ -35,15 +35,15 @@ public class Copy_List_with_Random_Pointer {
 
         cur = head;
         while (cur != null) { //set each copied node's random pointer
-            Node temp = cur.next;
+            CNode temp = cur.next;
             if (cur.random != null) {
                 temp.random = cur.random.next;
             }
             cur = temp.next;
         }
 
-        Node p = head;
-        Node pCloneHead = head.next;
+        CNode p = head;
+        CNode pCloneHead = head.next;
         cur = pCloneHead;
         while (p!=null) { //reconnect two list (1->2->3->null, 1'->2'->3'->null)
             p.next = cur.next;
