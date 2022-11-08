@@ -51,7 +51,7 @@ public class Multiply_Strings {
                 sb.append(tempSb);
             } else {
                 int tempFlag = 0;
-                for (int k = sb.length() - move - 1; k >= 0 && !tempSb.isEmpty(); k--) {
+                for (int k = sb.length() - move - 1; k >= 0 && tempSb.length() != 0; k--) {
                     int add1 = Integer.parseInt(String.valueOf(tempSb.charAt(tempSb.length() - 1)));
                     tempSb.deleteCharAt(tempSb.length() - 1);
                     int add2 = Integer.parseInt(String.valueOf(sb.charAt(k)));
