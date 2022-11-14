@@ -24,6 +24,6 @@ public class Guess_Number_Higher_or_Lower {
     }
 
     public int guess(int num) {
-        return 1;
+        return 0;
     }
 }
