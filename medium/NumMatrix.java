@@ -26,7 +26,6 @@ public class NumMatrix {
                 dp[i][j] = matrix[i][j] + dp[i - 1][j] + dp[i][j - 1] - dp[i - 1][j - 1];
             }
         }
-        print(dp);
     }
 
     public int sumRegion(int row1, int col1, int row2, int col2) {
@@ -38,15 +37,6 @@ public class NumMatrix {
             return dp[row2][col2] - dp[row1 - 1][col2];
         } else {
             return dp[row2][col2] - dp[row2][col1 - 1] - dp[row1 - 1][col2] + dp[row1 - 1][col1 - 1];
-        }
-    }
-
-    public void print(int[][] dp) {
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                System.out.print(dp[i][j] + " ");
-            }
-            System.out.println("");
         }
     }
 }
