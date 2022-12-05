@@ -18,8 +18,6 @@ public class Max_Consecutive_Ones {
         int start = -1;
         int end = -1;
         for (int i = 0; i < nums.length; i++) {
-            System.out.println(nums[i]);
-            System.out.println(start + " " + end + " " + maxLen);
             if (nums[i] == 1 && start == -1) {
                 start = i;
                 end = i;
@@ -29,8 +27,6 @@ public class Max_Consecutive_Ones {
                 maxLen = Math.max(maxLen, end - start + 1);
                 start = -1;
             }
-            System.out.println(start + " " + end + " " + maxLen);
-            System.out.println("-----------------");
         }
         if (start != -1) {
             maxLen = Math.max(maxLen, end - start + 1);
