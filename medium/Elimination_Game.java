@@ -1,4 +1,4 @@
-package easy;
+package medium;
 
 /**
  * 390. Elimination Game
