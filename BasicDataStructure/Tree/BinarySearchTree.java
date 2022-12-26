@@ -27,6 +27,11 @@ public class BinarySearchTree {
         } else {
             System.out.println("不存在值为 " + key + " 的节点");
         }
+        //删除
+        System.out.print("输入要删除的key值: ");
+        int delKey = sc.nextInt();
+        Node delRes = delete(root, delKey);
+        BinaryTree.level(delRes);
     }
 
     //二叉搜索树的插入
@@ -80,5 +85,31 @@ public class BinarySearchTree {
             }
         }
         return null;
+    }
+
+    //二叉搜索树的删除
+    public static Node delete(Node root, int key) {
+        if (root == null) {
+            return null;
+        }
+        if (root.data == key) {
+            if (root.left == null) {
+                return root.right;
+            }
+            if (root.right == null) {
+                return root.left;
+            }
+            Node leftTreeMaxNode = root.left;
+            while (leftTreeMaxNode.right != null) {
+                leftTreeMaxNode = leftTreeMaxNode.right;
+            }
+            leftTreeMaxNode.right = root.right;
+            return root.left;
+        } else if (root.data < key) {
+            root.right = delete(root.right, key);
+        } else {
+            root.left = delete(root.left, key);
+        }
+        return root;
     }
 }
