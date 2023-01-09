@@ -22,6 +22,6 @@ public class Implement_Rand10_Using_Rand7 {
 
     public int rand7() {
         Random random = new Random();
-        return random.nextInt(1, 7);
+        return random.nextInt(7);
     }
 }
