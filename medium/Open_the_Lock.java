@@ -19,7 +19,7 @@ public class Open_the_Lock {
         Set<String> visited = new HashSet<>();
         Queue<String> queue = new LinkedList<>();
         int step = 0;
-        queue.add("0000");
+        queue.add("0000754. Reach a Number");
         visited.add("0000");
         while (!queue.isEmpty()) {
             int size = queue.size();
