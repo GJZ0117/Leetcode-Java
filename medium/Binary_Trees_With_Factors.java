@@ -35,6 +35,6 @@ public class Binary_Trees_With_Factors {
         for (long c : map.values()) {
             ans += c;
         }
-        return (int) ans % mod;
+        return (int) (ans % mod);
     }
 }
