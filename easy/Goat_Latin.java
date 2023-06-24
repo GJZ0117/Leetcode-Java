@@ -33,7 +33,9 @@ public class Goat_Latin {
                 temp.append(str.charAt(0));
             }
             temp.append("ma");
-            temp.append("a".repeat(i + 1));
+            for (int j = i + 1; j >= 0; j--) {
+                temp.append("a");
+            }
             sb.append(temp);
             if (i != strs.length - 1) {
                 sb.append(" ");
