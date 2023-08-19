@@ -1,8 +1,6 @@
 package medium;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * 3. Longest Substring Without Repeating Characters
@@ -60,4 +58,23 @@ public class Longest_Substring_Without_Repeating_Characters {
         return max;
     }
 
+    // 二刷
+    public int lengthOfLongestSubstring_2(String s) {
+        Set<Character> set = new HashSet<>();
+        int maxLength = 0;
+        int left = 0;
+        int right = 0;
+        while (right < s.length()) {
+            char rightCh = s.charAt(right);
+            while (set.contains(rightCh) && left < right) {
+                char leftCh = s.charAt(left);
+                set.remove(leftCh);
+                left++;
+            }
+            set.add(rightCh);
+            maxLength = Math.max(maxLength, right - left + 1);
+            right++;
+        }
+        return maxLength;
+    }
 }
