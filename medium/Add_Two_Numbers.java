@@ -83,4 +83,60 @@ public class Add_Two_Numbers {
 
         return listNode;
     }
+
+    // 二刷
+    public ListNode addTwoNumbers_2(ListNode l1, ListNode l2) {
+        int len1 = 0;
+        int len2 = 0;
+        ListNode node = l1;
+        while (node != null) {
+            len1++;
+            node = node.next;
+        }
+        node = l2;
+        while (node != null) {
+            len2++;
+            node = node.next;
+        }
+        if (len1 < len2) {
+            node = l1;
+            l1 = l2;
+            l2 = node;
+        }
+        node = l1;
+        boolean flag = false;
+        ListNode pre = l1;
+        while (l1 != null && l2 != null) {
+            int val = l1.val + l2.val + (flag ? 1 : 0);
+            if (val >= 10) {
+                flag = true;
+                val = val % 10;
+            } else {
+                flag = false;
+            }
+            l1.val = val;
+            pre = l1;
+            l1 = l1.next;
+            l2 = l2.next;
+        }
+        while (l1 != null && flag) {
+            int val = l1.val + 1;
+            if (val >= 10) {
+                flag = true;
+                val = val % 10;
+            } else {
+                flag = false;
+            }
+            l1.val = val;
+            pre = l1;
+            l1 = l1.next;
+        }
+        if (flag) {
+            l1 = new ListNode();
+            l1.val = 1;
+            l1.next = null;
+            pre.next = l1;
+        }
+        return node;
+    }
 }
