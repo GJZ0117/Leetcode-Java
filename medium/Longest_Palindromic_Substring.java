@@ -39,4 +39,32 @@ public class Longest_Palindromic_Substring {
         }
         return s.substring(0, 1); //最长回文串长度为1直接返回第一个字符
     }
+
+    // 二刷
+    public String longestPalindrome_2(String s) {
+        int windowLength = s.length();
+        int offset = 0;
+        while (windowLength > 1) {
+            offset = s.length() - windowLength;
+            while (offset >= 0) {
+                int left = offset;
+                int right = offset + windowLength - 1;
+                boolean flag = true;
+                while (left < right) {
+                    if (s.charAt(left) != s.charAt(right)) {
+                        flag = false;
+                        break;
+                    }
+                    left++;
+                    right--;
+                }
+                if (flag) {
+                    return s.substring(offset, offset + windowLength);
+                }
+                offset--;
+            }
+            windowLength--;
+        }
+        return s.substring(0, 1);
+    }
 }
