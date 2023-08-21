@@ -28,4 +28,32 @@ public class Zigzag_Conversion {
 
         return sb[0].toString();
     }
+
+    // 二刷
+    public String convert_2(String s, int numRows) {
+        StringBuilder[] stringBuilders = new StringBuilder[numRows];
+        for (int i = 0; i < numRows; i++) {
+            stringBuilders[i] = new StringBuilder();
+        }
+        int lineIndex = 0;
+        boolean addLineIndex = true;
+        for (int i = 0; i < s.length(); i++) {
+            stringBuilders[lineIndex].append(s.charAt(i));
+            if (addLineIndex && lineIndex + 1 != numRows) {
+                lineIndex++;
+            } else if (lineIndex - 1 != -1) {
+                lineIndex--;
+            }
+            if (lineIndex == numRows - 1) {
+                addLineIndex = false;
+            } else if (lineIndex == 0) {
+                addLineIndex = true;
+            }
+        }
+        StringBuilder res = new StringBuilder();
+        for (StringBuilder sb : stringBuilders) {
+            res.append(sb);
+        }
+        return res.toString();
+    }
 }
