@@ -12,12 +12,28 @@ public class Container_With_Most_Water {
         int water = 0;
         while (i < j) {
             water = Math.max(water, Math.min(height[i], height[j]) * (j - i));
-            if (height[i]>height[j]){
+            if (height[i] > height[j]) {
                 j--;
-            }else {
+            } else {
                 i++;
             }
         }
         return water;
+    }
+
+    // 二刷
+    public int maxArea_2(int[] height) {
+        int maxWater = 0;
+        int left = 0;
+        int right = height.length - 1;
+        while (left < right) {
+            maxWater = Math.max(maxWater, (right - left) * Math.min(height[left], height[right]));
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return maxWater;
     }
 }
