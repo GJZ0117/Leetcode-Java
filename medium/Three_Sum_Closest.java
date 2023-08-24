@@ -37,4 +37,32 @@ public class Three_Sum_Closest {
 
         return cloest;
     }
+
+
+    // 二刷
+    public int threeSumClosest_2(int[] nums, int target) {
+        Arrays.sort(nums);
+        int minDiff = Integer.MAX_VALUE;
+        int minDiffSum = Integer.MAX_VALUE;
+        for (int i = 0; i < nums.length - 2; i++) {
+            int j = i + 1;
+            int k = nums.length - 1;
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if (Math.abs(sum - target) < minDiff) {
+                    minDiffSum = sum;
+                }
+                minDiff = Math.min(minDiff, Math.abs(sum - target));
+                if (sum == target) {
+                    return target;
+                } else if (sum > target) {
+                    k--;
+                } else {
+                    j++;
+                }
+            }
+        }
+        return minDiffSum;
+    }
+
 }
