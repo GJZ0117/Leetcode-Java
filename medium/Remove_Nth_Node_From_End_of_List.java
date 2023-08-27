@@ -1,5 +1,9 @@
 package medium;
 
+/**
+ * 19. Remove Nth Node From End of List
+ */
+
 class ListNode {
     int val;
     ListNode next;
@@ -18,7 +22,7 @@ class ListNode {
 
     @Override
     public String toString() {
-        return ""+this.val;
+        return "" + this.val;
     }
 }
 
@@ -39,7 +43,7 @@ public class Remove_Nth_Node_From_End_of_List {
 
         listNode1 = removeNthFromEnd(listNode1, 3);
 
-        while (listNode1 != null){
+        while (listNode1 != null) {
             System.out.print(listNode1);
             listNode1 = listNode1.next;
         }
@@ -64,8 +68,35 @@ public class Remove_Nth_Node_From_End_of_List {
             remove(cur.next, n, num);
         }
         num[0]++; //给引用类型变量的计数器+1
-        if (num[0]-1 == n){ //当计数器-1 == n时表示此时的head指向了需要删除节点的前一个节点
+        if (num[0] - 1 == n) { //当计数器-1 == n时表示此时的head指向了需要删除节点的前一个节点
             cur.next = cur.next.next;
         }
+    }
+
+
+    // 二刷
+    public ListNode removeNthFromEnd_2(ListNode head, int n) {
+        ListNode node = head;
+        int len = 0;
+        while (node != null) {
+            len++;
+            node = node.next;
+        }
+        if (len == n) {
+            return head.next;
+        }
+        delete(head, n);
+        return head;
+    }
+
+    private int delete(ListNode node, int n) {
+        if (node.next == null) {
+            return 1;
+        }
+        int cur = delete(node.next, n);
+        if (cur == n) {
+            node.next = node.next.next;
+        }
+        return cur + 1;
     }
 }
