@@ -21,18 +21,43 @@ public class Generate_Parentheses {
         generate(list, sb, left, right, n);
         return list;
     }
-    public static void generate(List<String> list, StringBuilder sb, int left, int right, int n){
-        if (sb.length() == 2*n){
+
+    public static void generate(List<String> list, StringBuilder sb, int left, int right, int n) {
+        if (sb.length() == 2 * n) {
             list.add(sb.toString());
             return;
         }
-        if (left < n){
-            generate(list, sb.append("("), left+1, right, n);
-            sb.delete(sb.length()-1, sb.length());
+        if (left < n) {
+            generate(list, sb.append("("), left + 1, right, n);
+            sb.delete(sb.length() - 1, sb.length());
         }
-        if (right < left){
-            generate(list, sb.append(")"), left, right+1, n);
-            sb.delete(sb.length()-1, sb.length());
+        if (right < left) {
+            generate(list, sb.append(")"), left, right + 1, n);
+            sb.delete(sb.length() - 1, sb.length());
         }
     }
+
+
+    // 二刷
+    public List<String> generateParenthesis_2(int n) {
+        List<String> res = new ArrayList<>();
+        recurse(res, 0, 0, new StringBuilder(), n);
+        return res;
+    }
+
+    private void recurse(List<String> res, int left, int right, StringBuilder sb, int n) {
+        if (sb.length() == 2 * n) {
+            res.add(sb.toString());
+            return;
+        }
+        if (left < n) {
+            recurse(res, left + 1, right, sb.append("("), n);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        if (right < left) {
+            recurse(res, left, right + 1, sb.append(")"), n);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+    }
+
 }
