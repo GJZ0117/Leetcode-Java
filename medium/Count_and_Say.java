@@ -36,4 +36,31 @@ public class Count_and_Say {
         }
         return sb.toString();
     }
+
+
+    // 二刷
+    public String countAndSay_2(int n) {
+        if (n == 1) {
+            return "1";
+        }
+        n--;
+        String preStr = "1";
+        StringBuilder sb = new StringBuilder();
+        while (n > 0) {
+            for (int i = 0; i < preStr.length(); i++) {
+                char ch = preStr.charAt(i);
+                int count = 1;
+                while (i + 1 < preStr.length() && preStr.charAt(i + 1) == ch) {
+                    count++;
+                    i++;
+                }
+                sb.append(count);
+                sb.append(ch);
+            }
+            preStr = sb.toString();
+            sb.delete(0, sb.length());
+            n--;
+        }
+        return preStr;
+    }
 }
