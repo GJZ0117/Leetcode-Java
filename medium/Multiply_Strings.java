@@ -1,5 +1,9 @@
 package medium;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * 43. Multiply Strings
  */
@@ -65,17 +69,17 @@ public class Multiply_Strings {
                     sb.replace(k, k + 1, String.valueOf(ans));
                 }
 
-                int index = tempSb.length()-1;
+                int index = tempSb.length() - 1;
                 while (tempFlag != 0 && index >= 0) {
                     int changeNum = Integer.parseInt(String.valueOf(tempSb.charAt(index)));
                     changeNum = changeNum + tempFlag;
                     if (changeNum > 9) {
                         tempFlag = changeNum / 10;
                         changeNum = changeNum % 10;
-                    }else {
+                    } else {
                         tempFlag = 0;
                     }
-                    tempSb.replace(index, index+1, String.valueOf(changeNum));
+                    tempSb.replace(index, index + 1, String.valueOf(changeNum));
                     index--;
                 }
                 if (tempFlag != 0) {
@@ -90,6 +94,80 @@ public class Multiply_Strings {
             move++;
         }
 
+        return sb.toString();
+    }
+
+
+    // 二刷
+    public String multiply_2(String num1, String num2) {
+        if ("0".equals(num1) || "0".equals(num2)) {
+            return "0";
+        }
+
+        if (num1.length() < num2.length()) {
+            String temp = num1;
+            num1 = num2;
+            num2 = temp;
+        }
+
+        List<String> list = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = num2.length() - 1; i >= 0; i--) {
+            int add = 0;
+            int n2 = num2.charAt(i) - '0';
+            if (n2 == 0) {
+                continue;
+            }
+
+            for (int j = num1.length() - 1; j >= 0; j--) {
+                int n1 = num1.charAt(j) - '0';
+                int n = n1 * n2 + add;
+                if (n > 9) {
+                    add = n / 10;
+                    n = n % 10;
+                } else {
+                    add = 0;
+                }
+                sb.insert(0, n);
+            }
+            if (add != 0) {
+                sb.insert(0, add);
+            }
+            sb.append("0".repeat(num2.length() - i - 1));
+
+            list.add(sb.toString());
+            sb.delete(0, sb.length());
+        }
+
+        System.out.println(list);
+
+        int add = 0;
+        for (int i = 0; !list.isEmpty() && i < list.get(list.size() - 1).length(); i++) {
+            int n = 0;
+
+            Iterator<String> iterator = list.iterator();
+            while (iterator.hasNext()) {
+                String str = iterator.next();
+                if (i >= str.length()) {
+                    iterator.remove();
+                    continue;
+                }
+                n += str.charAt(str.length() - i - 1) - '0';
+            }
+
+            n += add;
+            if (n > 9) {
+                add = n / 10;
+                n %= 10;
+            } else {
+                add = 0;
+            }
+            sb.insert(0, n);
+        }
+        if (add != 0) {
+            sb.insert(0, add);
+        }
         return sb.toString();
     }
 }
