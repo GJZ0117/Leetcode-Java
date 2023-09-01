@@ -48,4 +48,31 @@ public class Combination_Sum_II {
             }
         }
     }
+
+
+    // 二刷
+    public List<List<Integer>> combinationSum2_2(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        List<List<Integer>> res = new ArrayList<>();
+        dfs(res, candidates, target, 0, 0, new ArrayList<>());
+        return res;
+    }
+
+    public void dfs(List<List<Integer>> res, int[] candidates, int target, int index, int curSum, List<Integer> list) {
+        if (curSum == target) {
+            List<Integer> temp = new ArrayList<>(list);
+            res.add(temp);
+        } else if (curSum > target) {
+            return;
+        } else {
+            for (int i = index; i < candidates.length; i++) {
+                if (i > index && candidates[i] == candidates[i - 1]) {
+                    continue;
+                }
+                list.add(candidates[i]);
+                dfs(res, candidates, target, i + 1, curSum + candidates[i], list);
+                list.remove(list.size() - 1);
+            }
+        }
+    }
 }
