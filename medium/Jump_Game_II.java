@@ -1,6 +1,7 @@
 package medium;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -60,5 +61,19 @@ public class Jump_Game_II {
             generate(nums, curIndex + i, list);
         }
         list.set(0, list.get(0) - 1);
+    }
+
+
+    // 二刷
+    public int jump_2(int[] nums) {
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0] = 0;
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = 1; j <= nums[i] && i + j < nums.length; j++) {
+                dp[i + j] = Math.min(dp[i + j], dp[i] + 1);
+            }
+        }
+        return dp[nums.length - 1];
     }
 }
