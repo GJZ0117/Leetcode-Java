@@ -46,4 +46,34 @@ public class Permutations {
         nums[i] = nums[j];
         nums[j] = temp;
     }
+
+
+    // 二刷
+    public List<List<Integer>> permute_2(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        dfs(nums, res, 0);
+        return res;
+    }
+
+    private void dfs(int[] nums, List<List<Integer>> res, int index) {
+        if (index == nums.length) {
+            List<Integer> list = new ArrayList<>();
+            for (int n : nums) {
+                list.add(n);
+            }
+            res.add(list);
+        } else {
+            for (int i = index; i < nums.length; i++) {
+                change(nums, index, i);
+                dfs(nums, res, index + 1);
+                change(nums, index, i);
+            }
+        }
+    }
+
+    private void change(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
 }
