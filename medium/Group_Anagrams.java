@@ -22,7 +22,7 @@ public class Group_Anagrams {
             String sortedStr = new String(arrayChar);
             if (map.containsKey(sortedStr)) {
                 map.get(sortedStr).add(str);
-            }else {
+            } else {
                 List<String> list = new ArrayList<>();
                 list.add(str);
                 map.put(sortedStr, list);
@@ -33,5 +33,35 @@ public class Group_Anagrams {
             ans.add(map.get(sortedStr));
         }
         return ans;
+    }
+
+
+    // 二刷
+    public List<List<String>> groupAnagrams_2(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+        int[] chars = new int[26];
+        StringBuilder sb = new StringBuilder();
+        for (String str : strs) {
+            for (char c : str.toCharArray()) {
+                chars[c - 'a']++;
+            }
+            for (int i = 0; i < 26; i++) {
+                if (chars[i] != 0) {
+                    sb.append(chars[i]);
+                    sb.append((char) ('a' + i));
+                    chars[i] = 0;
+                }
+            }
+            String key = sb.toString();
+            sb.delete(0, sb.length());
+            if (map.containsKey(key)) {
+                map.get(key).add(str);
+            } else {
+                List<String> list = new ArrayList<>();
+                list.add(str);
+                map.put(key, list);
+            }
+        }
+        return new ArrayList<>(map.values());
     }
 }
