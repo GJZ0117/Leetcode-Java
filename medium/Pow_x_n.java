@@ -60,4 +60,27 @@ public class Pow_x_n {
         double lastNum = resList.get(resList.size() - 1);
         return isNPositive ? lastNum : (1 / lastNum);
     }
+
+
+    // 二刷 还不会
+    // https://leetcode.cn/problems/powx-n/solutions/241471/50-powx-n-kuai-su-mi-qing-xi-tu-jie-by-jyd/
+    public double myPow_2(double x, int n) {
+        if (x == 0) {
+            return 0;
+        }
+        long b = n;
+        double res = 1;
+        if (b < 0) {
+            x = 1 / x;
+            b = -b;
+        }
+        while (b > 0) {
+            if ((b & 1) == 1) {
+                res = res * x;
+            }
+            x = x * x;
+            b = b >> 1;
+        }
+        return res;
+    }
 }
