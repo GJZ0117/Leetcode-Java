@@ -16,4 +16,16 @@ public class Jump_Game {
         return furthest >= nums.length - 1;
     }
 
+
+    // 二刷
+    public boolean canJump_2(int[] nums) {
+        int maxIndex = 0;
+        for (int i = 0; i < nums.length - 1; i++) {
+            maxIndex = Math.max(maxIndex, i + nums[i]);
+            if (maxIndex == i) {
+                return false;
+            }
+        }
+        return maxIndex >= nums.length - 1;
+    }
 }
