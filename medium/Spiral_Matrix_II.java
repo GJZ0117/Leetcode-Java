@@ -30,7 +30,7 @@ public class Spiral_Matrix_II {
             j--;
 
             i++;
-            while (i < n && matrix[i][j]==0) { //down
+            while (i < n && matrix[i][j] == 0) { //down
                 matrix[i][j] = cur;
                 cur++;
                 i++;
@@ -38,7 +38,7 @@ public class Spiral_Matrix_II {
             i--;
 
             j--;
-            while (j>=0 && matrix[i][j] == 0) { //left
+            while (j >= 0 && matrix[i][j] == 0) { //left
                 matrix[i][j] = cur;
                 cur++;
                 j--;
@@ -46,7 +46,51 @@ public class Spiral_Matrix_II {
             j++;
 
             i--;
-            while (i>=0 && matrix[i][j] == 0) { //up
+            while (i >= 0 && matrix[i][j] == 0) { //up
+                matrix[i][j] = cur;
+                cur++;
+                i--;
+            }
+            i++;
+            j++;
+        }
+        return matrix;
+    }
+
+
+    // 二刷
+    public int[][] generateMatrix_2(int n) {
+        int cur = 1;
+        int end = n * n;
+        int i = 0;
+        int j = 0;
+        int[][] matrix = new int[n][n];
+        while (cur <= end) {
+            while (j < n && matrix[i][j] == 0) {
+                matrix[i][j] = cur;
+                cur++;
+                j++;
+            }
+            i++;
+            j--;
+
+            while (i < n && matrix[i][j] == 0) {
+                matrix[i][j] = cur;
+                cur++;
+                i++;
+            }
+            i--;
+            j--;
+
+            while (j >= 0 && matrix[i][j] == 0) {
+                matrix[i][j] = cur;
+                cur++;
+                j--;
+            }
+            i--;
+            j++;
+
+            while (i >= 0 && matrix[i][j] == 0) {
                 matrix[i][j] = cur;
                 cur++;
                 i--;
