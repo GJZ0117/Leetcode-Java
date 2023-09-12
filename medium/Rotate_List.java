@@ -33,4 +33,39 @@ public class Rotate_List {
         pre.next = null;
         return head;
     }
+
+
+    // 二刷
+    public ListNode rotateRight_2(ListNode head, int k) {
+        if (head == null || head.next == null || k == 0) {
+            return head;
+        }
+
+        int len = 0;
+        ListNode node = head;
+        ListNode tail = head;
+        while (node != null) {
+            tail = node;
+            node = node.next;
+            len++;
+        }
+
+
+        k = k % len;
+        if (k == 0) {
+            return head;
+        }
+
+        ListNode newHead = new ListNode();
+        node = head;
+        int index = 1;
+        while (index < len - k) {
+            node = node.next;
+            index++;
+        }
+        newHead.next = node.next;
+        node.next = null;
+        tail.next = head;
+        return newHead.next;
+    }
 }
