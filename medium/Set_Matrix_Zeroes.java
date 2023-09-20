@@ -1,6 +1,8 @@
 package medium;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 
 /**
  * 73. Set Matrix Zeroes
@@ -9,7 +11,7 @@ import java.util.Arrays;
 public class Set_Matrix_Zeroes {
 
     public static void main(String[] args) {
-        int[][] matrix = {{-4,-2147483648,6,-7,0},{-8,6,-8,-6,0},{2147483647,2,-9,-6,-10}};
+        int[][] matrix = {{-4, -2147483648, 6, -7, 0}, {-8, 6, -8, -6, 0}, {2147483647, 2, -9, -6, -10}};
         setZeroes(matrix);
         for (int[] line : matrix) {
             System.out.println(Arrays.toString(line));
@@ -50,4 +52,31 @@ public class Set_Matrix_Zeroes {
         }
     }
 
+
+    // 二刷
+    public void setZeroes_2(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        Deque<int[]> deque = new ArrayDeque<>();
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == 0) {
+                    deque.push(new int[]{i, j});
+                }
+            }
+        }
+
+        while (!deque.isEmpty()) {
+            int[] pos = deque.pop();
+            int x = pos[0];
+            int y = pos[1];
+            for (int j = 0; j < n; j++) {
+                matrix[x][j] = 0;
+            }
+            for (int i = 0; i < m; i++) {
+                matrix[i][y] = 0;
+            }
+        }
+    }
 }
