@@ -37,4 +37,24 @@ public class Combinations {
             list.remove(list.size() - 1);
         }
     }
+
+
+    // 二刷
+    public List<List<Integer>> combine_2(int n, int k) {
+        List<List<Integer>> res = new ArrayList<>();
+        reverse(res, new ArrayList<>(k), n, k, 1);
+        return res;
+    }
+
+    private void reverse(List<List<Integer>> res, List<Integer> list, int n, int k, int start) {
+        if (list.size() == k) {
+            res.add(new ArrayList<>(list));
+            return;
+        }
+        for (int i = start; i <= n; i++) {
+            list.add(i);
+            reverse(res, list, n, k, i + 1);
+            list.remove(list.size() - 1);
+        }
+    }
 }
