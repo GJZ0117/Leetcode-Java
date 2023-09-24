@@ -33,4 +33,21 @@ public class Subsets {
             temp.remove(temp.size() - 1);
         }
     }
+
+
+    // 二刷
+    public List<List<Integer>> subsets_2(int[] nums) {
+        List<List<Integer>> lists = new ArrayList<>();
+        recurse(lists, new ArrayList<>(), nums, 0);
+        return lists;
+    }
+
+    private void recurse(List<List<Integer>> res, List<Integer> list, int[] nums, int index) {
+        res.add(new ArrayList<>(list));
+        for (int i = index; i < nums.length; i++) {
+            list.add(nums[i]);
+            recurse(res, list, nums, i + 1);
+            list.remove(list.size() - 1);
+        }
+    }
 }
