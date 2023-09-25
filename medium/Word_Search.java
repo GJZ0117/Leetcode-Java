@@ -75,4 +75,51 @@ public class Word_Search {
         sb.delete(sb.length() - 1, sb.length());
         return false;
     }
+
+
+    // 二刷
+    public boolean exist_2(char[][] board, String word) {
+        boolean isFound = false;
+        int m = board.length;
+        int n = board[0].length;
+
+        for (int i = 0; i < m && !isFound; i++) {
+            for (int j = 0; j < n && !isFound; j++) {
+                if (board[i][j] == word.charAt(0)) {
+                    isFound = search(board, m, n, i, j, word, 0);
+                }
+            }
+        }
+
+        return isFound;
+    }
+
+    int[][] directions = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
+
+    private boolean search(char[][] board, int m, int n, int x, int y, String word, int wordIndex) {
+        if (wordIndex == word.length()) {
+            return true;
+        } else if (board[x][y] != word.charAt(wordIndex)) {
+            return false;
+        }
+        board[x][y] = (char) (board[x][y] - 65);
+
+        int searchDirectionNum = 0;
+
+        for (int[] direction : directions) {
+            int i = x + direction[0];
+            int j = y + direction[1];
+            if (i < 0 || i >= m || j < 0 || j >= n) {
+                continue;
+            } else {
+                ++searchDirectionNum;
+                if (search(board, m, n, i, j, word, wordIndex + 1)) {
+                    board[x][y] = (char) (board[x][y] + 65);
+                    return true;
+                }
+            }
+        }
+        board[x][y] = (char) (board[x][y] + 65);
+        return searchDirectionNum == 0 && wordIndex == word.length() - 1;
+    }
 }
