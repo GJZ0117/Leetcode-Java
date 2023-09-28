@@ -27,4 +27,33 @@ public class Remove_Duplicates_from_Sorted_List_II {
         }
         return newHead.next;
     }
+
+
+    // 二刷
+    public ListNode deleteDuplicates_2(ListNode head) {
+        ListNode newHead = new ListNode();
+        newHead.next = head;
+        ListNode pre = newHead;
+        ListNode cur = newHead.next;
+        boolean isDuplicate = false;
+
+        while (cur != null) {
+            while (cur.next != null && cur.val == cur.next.val) {
+                isDuplicate = true;
+                cur = cur.next;
+            }
+
+            if (isDuplicate) {
+                cur = cur.next;
+                pre.next = cur;
+            } else {
+                pre.next = cur;
+                pre = cur;
+                cur = cur.next;
+            }
+
+            isDuplicate = false;
+        }
+        return newHead.next;
+    }
 }
