@@ -30,4 +30,25 @@ public class Partition_List {
         temp1.next = list2.next; // connect list1 and list2
         return list1.next;
     }
+
+
+    // 二刷
+    public ListNode partition_2(ListNode head, int x) {
+        ListNode originalHead = new ListNode();
+        originalHead.next = head;
+        ListNode newHead = new ListNode();
+        ListNode originalPointer = originalHead;
+        ListNode newPointer = newHead;
+        while (originalPointer.next != null) {
+            if (originalPointer.next.val < x) {
+                newPointer.next = originalPointer.next;
+                newPointer = newPointer.next;
+                originalPointer.next = originalPointer.next.next;
+            } else {
+                originalPointer = originalPointer.next;
+            }
+        }
+        newPointer.next = originalHead.next;
+        return newHead.next;
+    }
 }
