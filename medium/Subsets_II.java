@@ -1,8 +1,6 @@
 package medium;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * 90. Subsets II
@@ -26,6 +24,25 @@ public class Subsets_II {
             }
             list.add(nums[i]);
             generate(ans, list, nums, i + 1);
+            list.remove(list.size() - 1);
+        }
+    }
+
+
+    // 二刷
+    public List<List<Integer>> subsetsWithDup_2(int[] nums) {
+        Arrays.sort(nums);
+        Set<List<Integer>> set = new HashSet<>();
+        recurse(nums, 0, set, new ArrayList<>());
+        List<List<Integer>> lists = new ArrayList<>(set);
+        return lists;
+    }
+
+    private void recurse(int[] num, int index, Set<List<Integer>> set, List<Integer> list) {
+        set.add(new ArrayList<>(list));
+        for (int i = index; i < num.length; i++) {
+            list.add(num[i]);
+            recurse(num, i + 1, set, list);
             list.remove(list.size() - 1);
         }
     }
