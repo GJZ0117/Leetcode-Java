@@ -42,4 +42,33 @@ public class Unique_Binary_Search_Trees_II {
         node.right = clone(n.right, offset);
         return node;
     }
+
+
+    // 二刷（还不会）
+    public List<TreeNode> generateTrees_2(int n) {
+        return ways(1, n);
+    }
+
+    private List<TreeNode> ways(int start, int end) {
+        List<TreeNode> list = new ArrayList<>();
+        if (start > end) {
+            list.add(null);
+            return list;
+        }
+
+        for (int i = start; i <= end; i++) {
+            List<TreeNode> left = ways(start, i - 1);
+            List<TreeNode> right = ways(i + 1, end);
+            for (TreeNode l : left) {
+                for (TreeNode r : right) {
+                    TreeNode root = new TreeNode(i);
+                    root.left = l;
+                    root.right = r;
+                    list.add(root);
+                }
+            }
+        }
+
+        return list;
+    }
 }
