@@ -33,4 +33,34 @@ public class Recover_Binary_Search_Tree {
         pre = root;
         inOrder(root.right);
     }
+
+    // 二刷（还不会）
+    TreeNode prevNode = null;
+    TreeNode firstNode = null;
+    TreeNode secondNode = null;
+
+    public void recoverTree_2(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        inOrderTravel(root);
+        int temp = firstNode.val;
+        firstNode.val = secondNode.val;
+        secondNode.val = temp;
+    }
+
+    private void inOrderTravel(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        inOrderTravel(node.left);
+        if (prevNode != null && node.val < prevNode.val) {
+            if (firstNode == null) {
+                firstNode = prevNode;
+            }
+            secondNode = node;
+        }
+        prevNode = node;
+        inOrderTravel(node.right);
+    }
 }
