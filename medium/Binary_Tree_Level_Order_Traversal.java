@@ -1,7 +1,6 @@
 package medium;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 102. Binary Tree Level Order Traversal
@@ -57,5 +56,36 @@ public class Binary_Tree_Level_Order_Traversal {
         }
 
         return list;
+    }
+
+
+    // 二刷
+    public List<List<Integer>> levelOrder_2(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        List<Integer> list = new ArrayList<>();
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.addLast(root);
+        int len;
+        TreeNode p;
+        while (!deque.isEmpty()) {
+            len = deque.size();
+            while (len > 0) {
+                p = deque.removeFirst();
+                list.add(p.val);
+                if (p.left != null) {
+                    deque.addLast(p.left);
+                }
+                if (p.right != null) {
+                    deque.addLast(p.right);
+                }
+                len--;
+            }
+            res.add(new ArrayList<>(list));
+            list.clear();
+        }
+        return res;
     }
 }
