@@ -27,4 +27,27 @@ public class Construct_Binary_Tree_from_Preorder_and_Inorder_Traversal {
         root.right = createTree(preorder, map, preStart + leftChildTreeNum + 1, preEnd, rootIndex + 1); //right child tree's recrusion
         return root;
     }
+
+
+
+    // 二刷（还不会）
+    public TreeNode buildTree_2(int[] preorder, int[] inorder) {
+        return generate(0, 0, inorder.length - 1, preorder, inorder);
+    }
+
+    private TreeNode generate(int preStart, int inStart, int inEnd, int[] preOrder, int[] inOrder) {
+        if (preStart >= preOrder.length || inStart > inEnd) {
+            return null;
+        }
+        TreeNode root = new TreeNode(preOrder[preStart]);
+        int inIndex = 0; // Index of current root in inorder
+        for (int i = inStart; i <= inEnd; i++) {
+            if (inOrder[i] == root.val) {
+                inIndex = i;
+            }
+        }
+        root.left = generate(preStart + 1, inStart, inIndex - 1, preOrder, inOrder);
+        root.right = generate(preStart + inIndex - inStart + 1, inIndex + 1, inEnd, preOrder, inOrder);
+        return root;
+    }
 }
