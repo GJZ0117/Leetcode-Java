@@ -27,4 +27,25 @@ public class Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal {
         root.right = createTree(postorder, map, postStart + leftChildTreeNum, postEnd - 1, rootIndex + 1);
         return root;
     }
+
+
+    // 二刷（还不会）
+    public TreeNode buildTre_2(int[] inorder, int[] postorder) {
+        return generate(inorder, 0, inorder.length - 1, postorder, 0, postorder.length - 1);
+    }
+
+    private TreeNode generate(int[] inOrder, int inStart, int inEnd, int[] postOrder, int postStart, int postEnd) {
+        if (inStart > inEnd || postStart > postEnd) {
+            return null;
+        }
+        TreeNode root = new TreeNode(postOrder[postEnd]);
+        int inIndex = inStart;
+        while (inOrder[inIndex] != root.val) {
+            inIndex++;
+        }
+        int countLeftNodes = inIndex - inStart;
+        root.left = generate(inOrder, inStart, inIndex - 1, postOrder, postStart, postStart + countLeftNodes - 1);
+        root.right = generate(inOrder, inIndex + 1, inEnd, postOrder, postStart + countLeftNodes, postEnd - 1);
+        return root;
+    }
 }
