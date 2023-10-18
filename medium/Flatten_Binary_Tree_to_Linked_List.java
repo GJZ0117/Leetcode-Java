@@ -11,9 +11,9 @@ public class Flatten_Binary_Tree_to_Linked_List {
     public void flatten(TreeNode root) {
         List<TreeNode> list = new ArrayList<>();
         preOrder(root, list);
-        for (int i=0; i<list.size()-1; i++) {
+        for (int i = 0; i < list.size() - 1; i++) {
             list.get(i).left = null;
-            list.get(i).right = list.get(i+1);
+            list.get(i).right = list.get(i + 1);
         }
     }
 
@@ -27,5 +27,20 @@ public class Flatten_Binary_Tree_to_Linked_List {
                 preOrder(root.right, list);
             }
         }
+    }
+
+
+    // 二刷(还不会)
+    private TreeNode prev = null;
+
+    public void flatten_2(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        flatten_2(root.right);
+        flatten_2(root.left);
+        root.right = prev;
+        root.left = null;
+        prev = root;
     }
 }
