@@ -1,5 +1,7 @@
 package medium;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -69,6 +71,36 @@ public class Populating_Next_Right_Pointers_in_Each_Node {
                 }
                 if (p.right != null) {
                     queue.add(p.right);
+                }
+            }
+        }
+        return root;
+    }
+
+
+    // 二刷
+    public Node connect_2(Node root) {
+        Deque<Node> deque = new ArrayDeque<>();
+        int len;
+        Node p;
+        if (root != null) {
+            deque.addLast(root);
+        }
+        while (!deque.isEmpty()) {
+            len = deque.size();
+            while (len > 0) {
+                len--;
+                p = deque.removeFirst();
+                if (len == 0) {
+                    p.next = null;
+                } else {
+                    p.next = deque.peekFirst();
+                }
+                if (p.left != null) {
+                    deque.addLast(p.left);
+                }
+                if (p.right != null) {
+                    deque.addLast(p.right);
                 }
             }
         }
