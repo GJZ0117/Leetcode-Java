@@ -16,7 +16,7 @@ public class Triangle {
      * [3, 4]
      * [6, 5, 7]
      * [4, 1, 8, 3]
-     *
+     * <p>
      * dp:
      * 2
      * 5    6
@@ -40,5 +40,25 @@ public class Triangle {
             minTotal = Math.min(minTotal, dp[n - 1][i]);
         }
         return minTotal;
+    }
+
+
+    // 二刷
+    public int minimumTotal_2(List<List<Integer>> triangle) {
+        int n = triangle.size();
+        int[][] dp = new int[n][n];
+        dp[0][0] = triangle.get(0).get(0);
+        for (int i = 1; i < n; i++) {
+            dp[i][0] = dp[i - 1][0] + triangle.get(i).get(0);
+            for (int j = 1; j < i; j++) {
+                dp[i][j] = Math.min(dp[i - 1][j - 1], dp[i - 1][j]) + triangle.get(i).get(j);
+            }
+            dp[i][i] = dp[i - 1][i - 1] + triangle.get(i).get(i);
+        }
+        int min = Integer.MAX_VALUE;
+        for (int num : dp[n - 1]) {
+            min = Math.min(min, num);
+        }
+        return min;
     }
 }
