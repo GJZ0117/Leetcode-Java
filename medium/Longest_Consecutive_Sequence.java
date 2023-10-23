@@ -1,7 +1,9 @@
 package medium;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * 128. Longest Consecutive Sequence
@@ -9,7 +11,7 @@ import java.util.Set;
 
 public class Longest_Consecutive_Sequence {
     public static void main(String[] args) {
-        int[] nums = {0,3,7,2,5,8,4,6,0,1};
+        int[] nums = {0, 3, 7, 2, 5, 8, 4, 6, 0, 1};
         System.out.println(longestConsecutive(nums));
     }
 
@@ -29,5 +31,30 @@ public class Longest_Consecutive_Sequence {
             }
         }
         return longest;
+    }
+
+
+    // 二刷
+    public int longestConsecutive_2(int[] nums) {
+        TreeSet<Integer> treeSet = new TreeSet<>();
+        Arrays.stream(nums).forEach(e -> treeSet.add(e));
+        int prev = Integer.MIN_VALUE;
+        int maxLength = 0;
+        int curLength = 0;
+        for (int num : treeSet) {
+            if (prev == Integer.MIN_VALUE) {
+                curLength = 1;
+                prev = num;
+            } else {
+                if (num == prev + 1) {
+                    curLength++;
+                } else {
+                    curLength = 1;
+                }
+                prev = num;
+            }
+            maxLength = Math.max(maxLength, curLength);
+        }
+        return maxLength;
     }
 }
