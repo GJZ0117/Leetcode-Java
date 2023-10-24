@@ -41,4 +41,35 @@ public class Sum_Root_to_Leaf_Numbers {
         }
         list.remove(list.size() - 1);
     }
+
+
+    // 二刷
+
+    int sum = 0;
+
+    public int sumNumbers_2(TreeNode root) {
+        preOrder(root, new ArrayList<>());
+        return sum;
+    }
+
+    private void preOrder(TreeNode node, List<Integer> list) {
+        if (node == null) {
+            return;
+        }
+        list.add(node.val);
+        if (node.left == null && node.right == null) {
+            int num = 0;
+            for (int i = list.size() - 1; i >= 0; i--) {
+                num += list.get(i) * Math.pow(10, list.size() - i - 1);
+            }
+            sum += num;
+        }
+        if (node.left != null) {
+            preOrder(node.left, list);
+        }
+        if (node.right != null) {
+            preOrder(node.right, list);
+        }
+        list.remove(list.size() - 1);
+    }
 }
