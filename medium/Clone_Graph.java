@@ -60,4 +60,43 @@ public class Clone_Graph {
         }
         return newMap.get(node.val);
     }
+
+
+    // 二刷
+    public GraphNode cloneGraph_2(GraphNode node) {
+        if(node == null) {
+            return node;
+        }
+        Map<Integer, GraphNode> map = new HashMap<>();
+        Deque<GraphNode> deque = new ArrayDeque<>();
+        boolean[] visited = new boolean[101];
+        deque.addLast(node);
+        while(!deque.isEmpty()) {
+            GraphNode p = deque.removeFirst();
+            if(!visited[p.val]) {
+                visited[p.val] = true;
+                GraphNode newNode = null;
+                if(!map.containsKey(p.val)) {
+                    newNode = new GraphNode(node.val);
+                    map.put(newNode.val, newNode);
+                } else {
+                    newNode = map.get(p.val);
+                }
+
+                for(GraphNode neighbor : p.neighbors) {
+                    if(map.containsKey(neighbor.val)) {
+                        newNode.neighbors.add(map.get(neighbor.val));
+                    } else {
+                        GraphNode newNeighbor = new GraphNode(neighbor.val);
+                        map.put(newNeighbor.val, newNeighbor);
+                        newNode.neighbors.add(newNeighbor);
+                    }
+                    if(!visited[neighbor.val]) {
+                        deque.addLast(neighbor);
+                    }
+                }
+            }
+        }
+        return map.get(node.val);
+    }
 }
