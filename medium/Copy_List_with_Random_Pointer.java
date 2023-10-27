@@ -55,4 +55,37 @@ public class Copy_List_with_Random_Pointer {
         }
         return pCloneHead;
     }
+
+
+    // 二刷
+    public CNode copyRandomList_2(CNode head) {
+        if(head == null) {
+            return null;
+        }
+        CNode p = head;
+        while(p != null) {
+            CNode copyNode = new CNode(p.val);
+            copyNode.next = p.next;
+            p.next = copyNode;
+            p = copyNode.next;
+        }
+        p = head;
+        while(p != null) {
+            if(p.random != null) {
+                p.next.random = p.random.next;
+            }
+            p = p.next.next;
+        }
+        CNode copyHead = new CNode(0);
+        CNode cur = copyHead;
+        p = head;
+        while(p != null) {
+            CNode temp = p.next;
+            p.next = p.next.next;
+            cur.next = temp;
+            cur = cur.next;
+            p = p.next;
+        }
+        return copyHead.next;
+    }
 }
