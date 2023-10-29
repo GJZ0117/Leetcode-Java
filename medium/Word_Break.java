@@ -55,4 +55,23 @@ public class Word_Break {
         }
         return false;
     }
+
+
+    // 二刷（还不会）
+    public boolean wordBreak_2(String s, List<String> wordDict) {
+        int n = s.length();
+        boolean[] dp = new boolean[n + 1];
+        dp[0] = true;
+        for (int i = 1; i <= n; i++) {
+            for (String word : wordDict) {
+                if (i - word.length() >= 0 && word.equals(s.substring(i - word.length(), i))) {
+                    dp[i] = dp[i - word.length()];
+                }
+                if (dp[i]) {
+                    break;
+                }
+            }
+        }
+        return dp[n];
+    }
 }
