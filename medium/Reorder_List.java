@@ -50,4 +50,40 @@ public class Reorder_List {
             head = head.next;
         }
     }
+
+
+    // 二刷
+    public void reorderList_2(ListNode head) {
+        if (head.next == null) {
+            return;
+        }
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        if(fast.next != null) {
+            slow = slow.next;
+        }
+
+        ListNode pre = slow.next;
+        while (pre.next != null) {
+            ListNode temp = pre.next;
+            pre.next = pre.next.next;
+            temp.next = slow.next;
+            slow.next = temp;
+        }
+        ListNode secondPart = slow.next;
+        slow.next = null;
+        pre = head;
+        ListNode p = secondPart;
+        while (pre != null && p != null) {
+            ListNode temp = p.next;
+            p.next = pre.next;
+            pre.next = p;
+            pre = p.next;
+            p = temp;
+        }
+    }
 }
