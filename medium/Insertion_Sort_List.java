@@ -28,4 +28,29 @@ public class Insertion_Sort_List {
         }
         return newHead.next;
     }
+
+
+    // 二刷
+    public ListNode insertionSortList_2(ListNode head) {
+        if (head.next == null) {
+            return head;
+        }
+        ListNode newHead = new ListNode(Integer.MIN_VALUE, head);
+        ListNode cur = head.next;
+        head.next = null;
+        while (cur != null) {
+            ListNode temp = cur.next;
+            ListNode p = newHead;
+            while (p.next != null) {
+                if (cur.val >= p.val && cur.val <= p.next.val) {
+                    break;
+                }
+                p = p.next;
+            }
+            cur.next = p.next;
+            p.next = cur;
+            cur = temp;
+        }
+        return newHead.next;
+    }
 }
