@@ -1,5 +1,7 @@
 package medium;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Stack;
 
 /**
@@ -43,4 +45,32 @@ public class Evaluate_Reverse_Polish_Notation {
         }
     }
 
+
+    // 二刷
+    public int evalRPN_2(String[] tokens) {
+        Deque<Integer> deque = new ArrayDeque<>();
+        for (String token : tokens) {
+            if ("+".equals(token) || "-".equals(token) || "*".equals(token) || "/".equals(token)) {
+                int n2 = deque.removeLast();
+                int n1 = deque.removeLast();
+                switch (token) {
+                    case "+":
+                        deque.addLast(n1 + n2);
+                        break;
+                    case "-":
+                        deque.addLast(n1 - n2);
+                        break;
+                    case "*":
+                        deque.addLast(n1 * n2);
+                        break;
+                    case "/":
+                        deque.addLast(n1 / n2);
+                        break;
+                }
+            } else {
+                deque.addLast(Integer.valueOf(token));
+            }
+        }
+        return deque.removeLast();
+    }
 }
