@@ -9,6 +9,7 @@ public class Sort_List {
     public ListNode betterSolution(ListNode head) {
         return betterSolution(head, null);
     }
+
     public ListNode betterSolution(ListNode head, ListNode tail) {
         if (head == null) {
             return head;
@@ -22,7 +23,7 @@ public class Sort_List {
         while (fast != tail) {
             slow = slow.next;
             fast = fast.next;
-            if (fast!=tail) {
+            if (fast != tail) {
                 fast = fast.next;
             }
         }
@@ -85,5 +86,48 @@ public class Sort_List {
             cur = sortedLast.next;
         }
         return h.next;
+    }
+
+    // 二刷（还不会）
+    public ListNode sortList_2(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode fast = head;
+        ListNode slow = head;
+        ListNode prevSlow = null;
+        while (fast != null && fast.next != null) {
+            prevSlow = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        prevSlow.next = null;
+
+        ListNode l1 = sortList_2(head);
+        ListNode l2 = sortList_2(slow);
+
+        return merge(l1, l2);
+    }
+
+    private ListNode merge(ListNode l1, ListNode l2) {
+        ListNode newHead = new ListNode();
+        ListNode cur = newHead;
+        while (l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                cur.next = l1;
+                l1 = l1.next;
+            } else {
+                cur.next = l2;
+                l2 = l2.next;
+            }
+            cur = cur.next;
+        }
+        if (l1 != null) {
+            cur.next = l1;
+        }
+        if (l2 != null) {
+            cur.next = l2;
+        }
+        return newHead.next;
     }
 }
