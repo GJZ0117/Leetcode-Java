@@ -10,7 +10,7 @@ import java.util.List;
 public class Reverse_Words_in_a_String {
 
     public static void main(String[] args) {
-        String s =  "the sky is blue";
+        String s = "the sky is blue";
         System.out.println(reverseWords(s));
     }
 
@@ -40,6 +40,43 @@ public class Reverse_Words_in_a_String {
                 sb.append(" ");
             }
         }
+        return sb.toString();
+    }
+
+
+    // 二刷
+    public String reverseWords_2(String s) {
+        StringBuilder sb = new StringBuilder();
+        StringBuilder word = new StringBuilder();
+        int start = 0;
+        int end = s.length() - 1;
+        boolean isFirst = true;
+        while (start <= end && s.charAt(start) == ' ') {
+            start++;
+        }
+        while (end >= start && s.charAt(end) == ' ') {
+            end--;
+        }
+        for (int i = end; i >= start; i--) {
+            if (s.charAt(i) == ' ') {
+                while (i >= start && s.charAt(i) == ' ') {
+                    i--;
+                }
+                i++;
+                if (!isFirst) {
+                    sb.append(" ");
+                }
+                isFirst = false;
+                sb.append(word);
+                word.delete(0, word.length());
+            } else {
+                word.insert(0, s.charAt(i));
+            }
+        }
+        if (sb.length() > 0) {
+            sb.append(" ");
+        }
+        sb.append(word);
         return sb.toString();
     }
 }
