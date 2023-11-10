@@ -27,4 +27,20 @@ public class Find_Minimum_in_Rotated_Sorted_Array {
         }
         return nums[left];
     }
+
+
+    // 二刷（还不会）
+    public int findMin_2(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > nums[right]) {
+                left = mid + 1;
+            } else if (nums[mid] < nums[right]) {
+                right = mid;
+            }
+        }
+        return nums[left];
+    }
 }
