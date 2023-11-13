@@ -1,6 +1,8 @@
 package medium;
 
 
+import java.util.Arrays;
+
 /**
  * 179. Largest Number
  */
@@ -68,5 +70,19 @@ public class Largest_Number {
             }
         }
         return 1; // s1 + s2 equals s2 + s1, return 1 or -1
+    }
+
+
+    // 二刷（还不会）
+    public String largestNumber_2(int[] nums) {
+        String[] s = new String[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            s[i] = String.valueOf(nums[i]);
+        }
+        StringBuilder sb = new StringBuilder();
+        Arrays.sort(s, (a, b) -> (b + a).compareTo(a + b));
+        Arrays.stream(s).forEach(e -> sb.append(e));
+        String res = sb.toString();
+        return res.startsWith("0") ? "0" : res;
     }
 }
