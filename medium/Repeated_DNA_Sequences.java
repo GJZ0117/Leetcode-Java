@@ -1,9 +1,6 @@
 package medium;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 187. Repeated DNA Sequences
@@ -24,5 +21,21 @@ public class Repeated_DNA_Sequences {
             }
         }
         return ans;
+    }
+
+
+    // 二刷
+    public List<String> findRepeatedDnaSequences_2(String s) {
+        Set<String> dictinctSet = new HashSet<>();
+        Set<String> repeatSet = new HashSet<>();
+        for (int i = 0; i + 9 < s.length(); i++) {
+            String str = s.substring(i, i + 10);
+            if (dictinctSet.contains(str)) {
+                repeatSet.add(str);
+            } else {
+                dictinctSet.add(str);
+            }
+        }
+        return new ArrayList<>(repeatSet);
     }
 }
