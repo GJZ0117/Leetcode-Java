@@ -1,5 +1,7 @@
 package medium;
 
+import java.util.Arrays;
+
 /**
  * 189. Rotate Array
  */
@@ -41,5 +43,15 @@ public class Rotate_Array {
             nums[i] = nums[i - 1];
         }
         nums[0] = lastNum;
+    }
+
+
+    // 二刷
+    public void rotate_2(int[] nums, int k) {
+        k = k % nums.length;
+        int[] arr = Arrays.copyOf(nums, nums.length);
+        for (int i = 0; i < nums.length; i++) {
+            nums[i] = arr[(i + arr.length - k) % arr.length];
+        }
     }
 }
