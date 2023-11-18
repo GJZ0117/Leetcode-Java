@@ -53,4 +53,37 @@ public class Number_of_Islands {
             fillIsland(grid, i, j + 1);
         }
     }
+
+
+    // 二刷
+    public int numIslands_2(char[][] grid) {
+        int res = 0;
+        int m = grid.length;
+        int n = grid[0].length;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1') {
+                    res++;
+                    change1To2(grid, i, j, m, n);
+                }
+            }
+        }
+        return res;
+    }
+
+    public void change1To2(char[][] grid, int i, int j, int m, int n) {
+        grid[i][j] = '2';
+        if (i - 1 >= 0 && grid[i - 1][j] == '1') {
+            change1To2(grid, i - 1, j, m, n);
+        }
+        if (i + 1 < m && grid[i + 1][j] == '1') {
+            change1To2(grid, i + 1, j, m, n);
+        }
+        if (j - 1 >= 0 && grid[i][j - 1] == '1') {
+            change1To2(grid, i, j - 1, m, n);
+        }
+        if (j + 1 < n && grid[i][j + 1] == '1') {
+            change1To2(grid, i, j + 1, m, n);
+        }
+    }
 }
