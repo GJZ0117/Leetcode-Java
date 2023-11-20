@@ -63,4 +63,51 @@ public class Course_Schedule {
         }
         return -1;
     }
+
+
+    // 二刷(还不会)
+    public boolean canFinish_2(int numCourses, int[][] prerequisites) {
+        int[] array = new int[numCourses];
+        boolean[] visited = new boolean[numCourses];
+        Map<Integer, List<Integer>> map = new HashMap<>((int) ((double) numCourses / 0.75));
+        for (int[] arr : prerequisites) {
+            array[arr[0]]++;
+            if (map.containsKey(arr[1])) {
+                map.get(arr[1]).add(arr[0]);
+            } else {
+                List<Integer> list = new ArrayList<>();
+                list.add(arr[0]);
+                map.put(arr[1], list);
+            }
+        }
+
+        while (true) {
+            int preCourse = findZeroPreCourse(array, visited, map);
+            if (preCourse == -1) {
+                break;
+            }
+            List<Integer> list = map.get(preCourse);
+            for (int i : list) {
+                array[i]--;
+            }
+        }
+
+        for (int val : array) {
+            if (val != 0) {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+    public int findZeroPreCourse(int[] array, boolean[] visited, Map<Integer, List<Integer>> map) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == 0 && !visited[i] && map.containsKey(i)) {
+                visited[i] = true;
+                return i;
+            }
+        }
+        return -1;
+    }
 }
