@@ -83,3 +83,58 @@ class Trie {
         return true;
     }
 }
+
+
+// 二刷
+class Trie_2 {
+
+    class TrieNode {
+        TrieNode[] vals = new TrieNode[26];
+        boolean isEnd;
+    }
+
+    TrieNode root;
+
+    public Trie_2() {
+        root = new TrieNode();
+    }
+
+    public void insert(String word) {
+        TrieNode cur = root;
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            if (cur.vals[c - 'a'] == null) {
+                TrieNode node = new TrieNode();
+                cur.vals[c - 'a'] = node;
+                cur = node;
+            } else {
+                cur = cur.vals[c - 'a'];
+            }
+        }
+        cur.isEnd = true;
+    }
+
+    public boolean search(String word) {
+        TrieNode cur = root;
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            if (cur.vals[c - 'a'] == null) {
+                return false;
+            }
+            cur = cur.vals[c - 'a'];
+        }
+        return cur.isEnd;
+    }
+
+    public boolean startsWith(String prefix) {
+        TrieNode cur = root;
+        for (int i = 0; i < prefix.length(); i++) {
+            char c = prefix.charAt(i);
+            if (cur.vals[c - 'a'] == null) {
+                return false;
+            }
+            cur = cur.vals[c - 'a'];
+        }
+        return true;
+    }
+}
