@@ -55,3 +55,54 @@ public class WordDictionary {
         }
     }
 }
+
+
+// 二刷
+class WordDictionary_2 {
+
+    class TrieNode {
+        TrieNode[] val = new TrieNode[26];
+        boolean isEnd;
+    }
+
+    TrieNode root;
+
+    public WordDictionary_2() {
+        root = new TrieNode();
+    }
+
+    public void addWord(String word) {
+        TrieNode cur = root;
+        for (char c : word.toCharArray()) {
+            if (cur.val[c - 'a'] == null) {
+                cur.val[c - 'a'] = new TrieNode();
+            }
+            cur = cur.val[c - 'a'];
+        }
+        cur.isEnd = true;
+    }
+
+    public boolean search(String word) {
+        return search(word, 0, root);
+    }
+
+    public boolean search(String word, int index, TrieNode cur) {
+        if (index == word.length()) {
+            return cur.isEnd;
+        }
+        if (word.charAt(index) == '.') {
+            for (int i = 0; i < 26; i++) {
+                if (cur.val[i] != null && search(word, index + 1, cur.val[i])) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            if (cur.val[word.charAt(index) - 'a'] == null) {
+                return false;
+            } else {
+                return search(word, index + 1, cur.val[word.charAt(index) - 'a']);
+            }
+        }
+    }
+}
