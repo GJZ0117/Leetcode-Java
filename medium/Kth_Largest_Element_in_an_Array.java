@@ -1,5 +1,8 @@
 package medium;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 /**
  * 215. Kth Largest Element in an Array
  */
@@ -51,5 +54,25 @@ public class Kth_Largest_Element_in_an_Array {
             lChild = 2 * lChild + 1;
         }
         arr[parent] = temp;
+    }
+
+
+    // 二刷
+    public int findKthLargest_2(int[] nums, int k) {
+        TreeMap<Integer, Integer> treeMap = new TreeMap<>();
+        for (int num : nums) {
+            treeMap.put(num, treeMap.getOrDefault(num, 0) + 1);
+        }
+        int cnt = 0;
+        Map.Entry<Integer, Integer> entry = treeMap.lastEntry();
+        while (!treeMap.isEmpty()) {
+            entry = treeMap.lastEntry();
+            treeMap.remove(entry.getKey());
+            cnt += entry.getValue();
+            if (cnt >= k) {
+                return entry.getKey();
+            }
+        }
+        return entry.getKey();
     }
 }
