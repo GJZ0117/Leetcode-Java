@@ -1,5 +1,6 @@
 package medium;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,6 +37,29 @@ public class Combination_Sum_III {
             }
             list.add(i);
             dfs(ans, list, k, n, i + 1, curSum + i);
+            list.remove(list.size() - 1);
+        }
+    }
+
+
+    // 二刷
+    public List<List<Integer>> combinationSum3_2(int k, int n) {
+        List<List<Integer>> res = new ArrayList<>();
+        fun(res, new ArrayList<>(), k, n, 1, 0);
+        return res;
+    }
+
+    private void fun(List<List<Integer>> res, List<Integer> list, int k, int n, int start, int sum) {
+        if (list.size() == k) {
+            if (sum == n) {
+                res.add(new ArrayList<>(list));
+            }
+            return;
+        }
+
+        for (int i = start; i <= 9; i++) {
+            list.add(i);
+            fun(res, list, k, n, i + 1, sum + i);
             list.remove(list.size() - 1);
         }
     }
