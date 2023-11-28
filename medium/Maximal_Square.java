@@ -66,4 +66,22 @@ public class Maximal_Square {
         }
         return true;
     }
+
+
+    // 二刷（还不会）
+    public int maximalSquare_2(char[][] matrix) {
+        int maxEdge = 0;
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int[][] dp = new int[m + 1][n + 1];
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (matrix[i - 1][j - 1] == '1') {
+                    dp[i][j] = Math.min(dp[i - 1][j - 1], Math.min(dp[i - 1][j], dp[i][j - 1])) + 1;
+                    maxEdge = Math.max(maxEdge, dp[i][j]);
+                }
+            }
+        }
+        return maxEdge * maxEdge;
+    }
 }
