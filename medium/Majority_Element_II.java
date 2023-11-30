@@ -1,9 +1,6 @@
 package medium;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 229. Majority Element II
@@ -64,6 +61,23 @@ public class Majority_Element_II {
         for (int num : map.keySet()) {
             if (map.get(num) > showTimes) {
                 list.add(num);
+            }
+        }
+        return list;
+    }
+
+
+    // 二刷
+    public List<Integer> majorityElement_2(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        List<Integer> list = new ArrayList<>();
+        for (int n : nums) {
+            map.put(n, map.getOrDefault(n, 0) + 1);
+        }
+        double size = ((double) nums.length) / 3.0;
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if ((double) entry.getValue() > size) {
+                list.add(entry.getKey());
             }
         }
         return list;
