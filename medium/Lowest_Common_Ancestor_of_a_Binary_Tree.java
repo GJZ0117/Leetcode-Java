@@ -66,4 +66,20 @@ public class Lowest_Common_Ancestor_of_a_Binary_Tree {
         return false;
     }
 
+
+    // 二刷（还不会）
+    public TreeNode lowestCommonAncestor_2(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == p || root == q || root == null) {
+            return root;
+        }
+        TreeNode left = lowestCommonAncestor_2(root.left, p, q);
+        TreeNode right = lowestCommonAncestor_2(root.right, p ,q);
+        if (left == null) {
+            return right;
+        } else if (right == null) {
+            return left;
+        } else {
+            return root;
+        }
+    }
 }
