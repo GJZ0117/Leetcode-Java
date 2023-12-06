@@ -1,5 +1,9 @@
 package medium;
 
+import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.Set;
+
 /**
  * 264. Ugly Number II
  */
@@ -26,5 +30,29 @@ public class Ugly_Number_II {
             ans[index] = min;
         }
         return ans[n];
+    }
+
+
+    // 二刷（还不会）
+    public int nthUglyNumber_2(int n) {
+        int[] nums = new int[]{2, 3, 5};
+        Set<Long> set = new HashSet<>();
+        PriorityQueue<Long> priorityQueue = new PriorityQueue<>();
+        set.add(1L);
+        priorityQueue.add(1L);
+        for (int i = 1; i <= n; i++) {
+            long x = priorityQueue.poll();
+            if (i == n) {
+                return (int) x;
+            }
+            for (int num : nums) {
+                long cur = num * x;
+                if (!set.contains(cur)) {
+                    set.add(cur);
+                    priorityQueue.add(cur);
+                }
+            }
+        }
+        return -1;
     }
 }
