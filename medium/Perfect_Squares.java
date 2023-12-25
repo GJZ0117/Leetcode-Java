@@ -1,5 +1,6 @@
 package medium;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,6 +43,39 @@ public class Perfect_Squares {
             int curCandidate = candidates.get(i);
             temp.add(curCandidate);
             dfs(remain - curCandidate, temp, candidates, i, leastNum);
+            temp.remove(temp.size() - 1);
+        }
+    }
+
+
+    // 二刷
+
+    int count = Integer.MAX_VALUE;
+
+    public int numSquares_2(int n) {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 1; i * i <= n; i++) {
+            list.add(i * i);
+        }
+        Collections.reverse(list);
+        recure(list, 0, new ArrayList<>(), n);
+        return count;
+    }
+
+    private void recure(List<Integer> list, int start, List<Integer> temp, int remain) {
+        if (remain < 0) {
+            return;
+        } else if (remain == 0) {
+            count = Math.min(count, temp.size());
+            return;
+        }
+        for (int i = start; i < list.size(); i++) {
+            if (temp.size() > count) {
+                break;
+            }
+            int num = list.get(i);
+            temp.add(num);
+            recure(list, i, temp, remain - num);
             temp.remove(temp.size() - 1);
         }
     }
