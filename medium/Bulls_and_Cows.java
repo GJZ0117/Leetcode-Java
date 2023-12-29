@@ -46,4 +46,32 @@ public class Bulls_and_Cows {
 
         return bulls.size() + "A" + cows + "B";
     }
+
+
+    // 二刷
+    public String getHint_2(String secret, String guess) {
+        Map<Character, Integer> secretMap = new HashMap<>();
+        Map<Character, Integer> guessMap = new HashMap<>();
+        int aCount = 0;
+        int bCount = 0;
+
+        for (int i = 0; i < secret.length(); i++) {
+            if (secret.charAt(i) == guess.charAt(i)) {
+                aCount++;
+            } else {
+                secretMap.put(secret.charAt(i), secretMap.getOrDefault(secret.charAt(i), 0) + 1);
+                guessMap.put(guess.charAt(i), guessMap.getOrDefault(guess.charAt(i), 0) + 1);
+            }
+        }
+
+        for (Map.Entry<Character, Integer> entry : secretMap.entrySet()) {
+            char key = entry.getKey();
+            int value = entry.getValue();
+            if (guessMap.containsKey(key)) {
+                bCount += Math.min(value, guessMap.get(key));
+            }
+        }
+
+        return aCount + "A" + bCount + "B";
+    }
 }
