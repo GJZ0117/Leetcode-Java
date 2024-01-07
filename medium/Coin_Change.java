@@ -14,7 +14,7 @@ public class Coin_Change {
         System.out.println(coinChange(coins, amount));
     }
 
-    //https://leetcode.cn/problems/coin-change/solution/322-ling-qian-dui-huan-by-leetcode-solution/
+    // https://leetcode.cn/problems/coin-change/solution/322-ling-qian-dui-huan-by-leetcode-solution/
     public static int coinChange(int[] coins, int amount) {
         int[] dp = new int[amount + 1];
         Arrays.fill(dp, amount + 1);
@@ -30,13 +30,13 @@ public class Coin_Change {
     }
 
 
-    //Time Limit Exceeded
+    // Time Limit Exceeded
     public static int _coinChange(int[] coins, int amount) {
         if (amount == 0) {
             return 0;
         }
         Arrays.sort(coins);
-        //reverse
+        // reverse
         int i = 0;
         int j = coins.length - 1;
         while (i < j) {
@@ -62,5 +62,23 @@ public class Coin_Change {
         for (int i = remain / coins[start]; i >= 0 && i + count < ans[0]; i--) {
             search(coins, remain - i * coins[start], start + 1, i + count, ans);
         }
+    }
+
+
+    // 二刷（还不会）
+    // https://leetcode.cn/problems/coin-change/solutions/6568/dong-tai-gui-hua-tao-lu-xiang-jie-by-wei-lai-bu-ke/
+    public int coinChange_2(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, amount + 1);
+        dp[0] = 0;
+        for (int i = 0; i < dp.length; i++) {
+            for (int coin : coins) {
+                if (i - coin < 0) {
+                    continue;
+                }
+                dp[i] = Math.min(dp[i], 1 + dp[i - coin]);
+            }
+        }
+        return dp[amount] >= amount + 1 ? -1 : dp[amount];
     }
 }
