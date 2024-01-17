@@ -56,3 +56,40 @@ interface NestedInteger {
     // Return empty list if this NestedInteger holds a single integer
     public List<NestedInteger> getList();
 }
+
+
+// 二刷
+class NestedIterator_2 implements Iterator<Integer> {
+
+    List<Integer> list;
+
+    public NestedIterator_2(List<NestedInteger> nestedList) {
+        this.list = new LinkedList<>();
+        dfs(nestedList);
+    }
+
+    public void dfs(List<NestedInteger> nestedList) {
+        for (NestedInteger obj : nestedList) {
+            if (obj.isInteger()) {
+                this.list.add(obj.getInteger());
+            } else {
+                dfs(obj.getList());
+            }
+        }
+    }
+
+    @Override
+    public Integer next() {
+        if (this.list.isEmpty()) {
+            return -1;
+        }
+        Integer integer = list.get(0);
+        list.remove(0);
+        return integer;
+    }
+
+    @Override
+    public boolean hasNext() {
+        return !this.list.isEmpty();
+    }
+}
