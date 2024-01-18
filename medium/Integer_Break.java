@@ -23,7 +23,7 @@ public class Integer_Break {
         return dp[n];
     }
 
-    //Time Limit Exceeded
+    // Time Limit Exceeded
     public static int _integerBreak(int n) {
         int[] res = {0};
         dfs(n, n, 1, res);
@@ -40,5 +40,29 @@ public class Integer_Break {
         for (int i = 1; i <= (remain == n ? remain - 1 : remain); i++) {
             dfs(n, remain - i, tempRes * i, res);
         }
+    }
+
+
+    // 二刷
+    int[] memory;
+
+    public int integerBreak_2(int n) {
+        memory = new int[n + 1];
+        return dfs(n);
+    }
+
+    public int dfs(int n) {
+        if (n == 2) {
+            return 1;
+        }
+        if (memory[n] != 0) {
+            return memory[n];
+        }
+        int res = -1;
+        for (int i = 1; i < n; i++) {
+            res = Math.max(res, Math.max(i * dfs(n - i), i * (n - i)));
+        }
+        memory[n] = res;
+        return res;
     }
 }
