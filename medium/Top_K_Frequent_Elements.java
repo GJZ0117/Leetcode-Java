@@ -29,4 +29,25 @@ public class Top_K_Frequent_Elements {
         }
         return res;
     }
+
+
+    // 二刷
+    public int[] topKFrequent_2(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> b[1] - a[1]);
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            heap.add(new int[]{entry.getKey(), entry.getValue()});
+        }
+        int[] res = new int[k];
+        int index = 0;
+        while (k > 0 && !heap.isEmpty()) {
+            int[] arr = heap.poll();
+            res[index++] = arr[0];
+            k--;
+        }
+        return res;
+    }
 }
