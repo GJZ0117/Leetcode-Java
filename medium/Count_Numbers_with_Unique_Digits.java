@@ -19,7 +19,7 @@ public class Count_Numbers_with_Unique_Digits {
             return 10;
         }
 
-        int[] records = new int[n+1];
+        int[] records = new int[n + 1];
         records[1] = 10;
         int tempAns = 9;
         int pre = 9;
@@ -38,6 +38,23 @@ public class Count_Numbers_with_Unique_Digits {
         int ans = 0;
         for (int num : records) {
             ans = ans + num;
+        }
+        return ans;
+    }
+
+
+    // 二刷
+    public int countNumbersWithUniqueDigits_2(int n) {
+        if (n == 0) {
+            return 1;
+        } else if (n == 1) {
+            return 10;
+        }
+        int ans = 10;
+        int cur = 9;
+        for (int i = 0; i < n - 1; i++) {
+            cur *= 9 - i;
+            ans += cur;
         }
         return ans;
     }
