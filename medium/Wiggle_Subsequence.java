@@ -27,4 +27,19 @@ public class Wiggle_Subsequence {
         }
         return maxLength;
     }
+
+    // 二刷（还不会）
+    // https://leetcode.cn/problems/wiggle-subsequence/solutions/284327/tan-xin-si-lu-qing-xi-er-zheng-que-de-ti-jie-by-lg/
+    public int wiggleMaxLength_2(int[] nums) {
+        int down = 1;
+        int up = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > nums[i - 1]) {
+                up = down + 1;
+            } else if (nums[i] < nums[i - 1]) {
+                down = up + 1;
+            }
+        }
+        return nums.length == 0 ? 0 : Math.max(down, up);
+    }
 }
