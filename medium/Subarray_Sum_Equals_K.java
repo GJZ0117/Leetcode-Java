@@ -36,4 +36,21 @@ public class Subarray_Sum_Equals_K {
         }
         return ans;
     }
+
+
+    // 二刷
+    public int subarraySum_2(int[] nums, int k) {
+        int ans = 0;
+        int curSum = 0;
+        Map<Integer, Integer> preSumMap = new HashMap<>();
+        preSumMap.put(0, 1);
+        for (int i = 0; i < nums.length; i++) {
+            curSum += nums[i];
+            if (preSumMap.containsKey(curSum - k)) {
+                ans += preSumMap.get(curSum - k);
+            }
+            preSumMap.put(curSum, preSumMap.getOrDefault(curSum, 0) + 1);
+        }
+        return ans;
+    }
 }
