@@ -7,7 +7,7 @@ package easy;
 public class Find_Pivot_Index {
 
     public static void main(String[] args) {
-        int[] nums = {2,1,-1};
+        int[] nums = {2, 1, -1};
         System.out.println(pivotIndex(nums));
     }
 
@@ -25,6 +25,23 @@ public class Find_Pivot_Index {
             if (leftSum == rightSum) {
                 return i;
             }
+        }
+        return -1;
+    }
+
+
+    // 二刷
+    public int pivotIndex_2(int[] nums) {
+        int total = 0;
+        for (int num : nums) {
+            total += num;
+        }
+        int preSum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (preSum == total - preSum - nums[i]) {
+                return i;
+            }
+            preSum += nums[i];
         }
         return -1;
     }
