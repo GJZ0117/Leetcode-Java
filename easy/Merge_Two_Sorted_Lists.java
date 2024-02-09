@@ -1,5 +1,10 @@
 package easy;
 
+
+/**
+ * 21. Merge Two Sorted Lists
+ */
+
 class ListNode {
     int val;
     ListNode next;
@@ -64,5 +69,30 @@ public class Merge_Two_Sorted_Lists {
             System.out.print(listNode);
             listNode = listNode.next;
         }
+    }
+
+    // 二刷
+    public ListNode mergeTwoLists_2(ListNode list1, ListNode list2) {
+        ListNode newHead = new ListNode();
+        ListNode cur = newHead;
+        ListNode l1 = list1;
+        ListNode l2 = list2;
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
+                cur.next = l1;
+                l1 = l1.next;
+            } else {
+                cur.next = l2;
+                l2 = l2.next;
+            }
+            cur = cur.next;
+        }
+
+        if (l1 != null) {
+            cur.next = l1;
+        } else if (l2 != null) {
+            cur.next = l2;
+        }
+        return newHead.next;
     }
 }
