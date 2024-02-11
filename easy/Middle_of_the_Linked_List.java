@@ -46,4 +46,15 @@ public class Middle_of_the_Linked_List {
         return pre.next;
     }
 
+
+    // 二刷
+    public ListNode middleNode_2(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return fast == null ? slow : slow.next;
+    }
 }
