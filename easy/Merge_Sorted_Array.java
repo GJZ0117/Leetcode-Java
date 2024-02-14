@@ -28,4 +28,32 @@ public class Merge_Sorted_Array {
             k--;
         }
     }
+
+
+    // 二刷
+    public void merge_2(int[] nums1, int m, int[] nums2, int n) {
+        int[] ans = new int[m + n];
+        int index = 0;
+        int index1 = 0;
+        int index2 = 0;
+        while (index < m + n && index1 < m && index2 < n) {
+            if (nums1[index1] < nums2[index2]) {
+                ans[index] = nums1[index1];
+                index1++;
+            } else {
+                ans[index] = nums2[index2];
+                index2++;
+            }
+            index++;
+        }
+        while (index1 < m) {
+            ans[index++] = nums1[index1++];
+        }
+        while (index2 < n) {
+            ans[index++] = nums2[index2++];
+        }
+        for (int i = 0; i < m + n; i++) {
+            nums1[i] = ans[i];
+        }
+    }
 }
