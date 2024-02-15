@@ -47,4 +47,25 @@ public class Squares_of_a_Sorted_Array {
         }
         return ans;
     }
+
+
+    // 二刷
+    public int[] sortedSquares_2(int[] nums) {
+        int n = nums.length;
+        int[] ans = new int[n];
+        int left = 0;
+        int right = n - 1;
+        for (int i = n - 1; i >= 0; i--) {
+            int left2 = nums[left] * nums[left];
+            int right2 = nums[right] * nums[right];
+            if (left2 < right2) {
+                ans[i] = right2;
+                right--;
+            } else {
+                ans[i] = left2;
+                left++;
+            }
+        }
+        return ans;
+    }
 }
