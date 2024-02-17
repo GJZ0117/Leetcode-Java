@@ -25,4 +25,17 @@ public class Remove_Duplicates_from_Sorted_Array {
         }
         return nums.length - duplication;
     }
+
+    // 二刷
+    public int removeDuplicates_2(int[] nums) {
+        int duplication = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i - 1] == nums[i]) {
+                duplication++;
+            } else {
+                nums[i - duplication] = nums[i];
+            }
+        }
+        return nums.length - duplication;
+    }
 }
