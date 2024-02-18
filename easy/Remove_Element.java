@@ -14,7 +14,7 @@ public class Remove_Element {
         System.out.println(Arrays.toString(nums));
     }
 
-    //双指针i:0->n-1, j:n-1->0
+    // 双指针i:0->n-1, j:n-1->0
     public static int removeElement(int[] nums, int val) {
         int duplication = 0;
         int temp;
@@ -43,5 +43,25 @@ public class Remove_Element {
             }
         }
         return nums.length - duplication;
+    }
+
+
+    // 二刷
+    public int removeElement_2(int[] nums, int val) {
+        int i = 0;
+        int j = 0;
+        int count = 0;
+        while (j < nums.length) {
+            while (j < nums.length && nums[j] == val) {
+                count++;
+                j++;
+            }
+            if (j < nums.length) {
+                nums[i] = nums[j];
+            }
+            i++;
+            j++;
+        }
+        return nums.length - count;
     }
 }
