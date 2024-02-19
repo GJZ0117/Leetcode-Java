@@ -18,10 +18,10 @@ public class Move_Zeroes {
         int i;
         int index = 0;
         int zeroNum = 0;
-        for (i=0; i<nums.length; i++) {
+        for (i = 0; i < nums.length; i++) {
             if (nums[i] == 0) {
                 zeroNum++;
-            }else {
+            } else {
                 nums[index] = nums[index + zeroNum];
                 index++;
             }
@@ -29,6 +29,25 @@ public class Move_Zeroes {
         while (index < nums.length) {
             nums[index] = 0;
             index++;
+        }
+    }
+
+
+    // 二刷
+    public void moveZeroes_2(int[] nums) {
+        int count = 0;
+        for (int num : nums) {
+            if (num == 0) {
+                count++;
+            }
+        }
+        for (int i = 0, index = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                nums[index++] = nums[i];
+            }
+        }
+        for (int i = nums.length - 1; i >= nums.length - count; i--) {
+            nums[i] = 0;
         }
     }
 }
