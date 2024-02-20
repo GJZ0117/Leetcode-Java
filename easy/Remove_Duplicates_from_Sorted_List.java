@@ -13,9 +13,25 @@ public class Remove_Duplicates_from_Sorted_List {
         while (cur.next != null) {
             if (cur.val == cur.next.val) {
                 cur.next = cur.next.next;
-            }else {
+            } else {
                 cur = cur.next;
             }
+        }
+        return head;
+    }
+
+
+    // 二刷
+    public ListNode deleteDuplicates_2(ListNode head) {
+        ListNode pre = head;
+        ListNode cur = null;
+        while (pre != null) {
+            cur = pre.next;
+            while (cur != null && cur.val == pre.val) {
+                cur = cur.next;
+            }
+            pre.next = cur;
+            pre = cur;
         }
         return head;
     }
