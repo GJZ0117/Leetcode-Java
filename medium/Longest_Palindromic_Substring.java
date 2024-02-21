@@ -1,5 +1,10 @@
 package medium;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 5. Longest Palindromic Substring
  */
@@ -12,15 +17,15 @@ public class Longest_Palindromic_Substring {
     }
 
     public static String longestPalindrome(String s) {
-        //滑动窗口的思想，窗口长度递减，用双指针扫描窗口里的字符进行对比
-        int window = s.length(); //窗口大小
-        int i, j; //双指针，i为左指针，j为右指针
-        boolean flag = true; //记录在窗口内遍历时i、j对应的字符是否相同
-        for (; window > 0; window--) { //窗口由大到小长度递减
-            int offset = s.length() - window; //固定一个窗口大小后，每轮遍历窗口时候的偏移
-            for (i = 0, j = window - 1; i <= offset; i++, j++) { //确定窗口大小后，对偏移量进行遍历
-                int temp = i; //用于暂存i，便于后续返回回文串时记录窗口的起始位置
-                while (i < j) { //固定一个窗口的大小和偏移后，对窗口内的字符串用双指针遍历
+        // 滑动窗口的思想，窗口长度递减，用双指针扫描窗口里的字符进行对比
+        int window = s.length(); // 窗口大小
+        int i, j; // 双指针，i为左指针，j为右指针
+        boolean flag = true; // 记录在窗口内遍历时i、j对应的字符是否相同
+        for (; window > 0; window--) { // 窗口由大到小长度递减
+            int offset = s.length() - window; // 固定一个窗口大小后，每轮遍历窗口时候的偏移
+            for (i = 0, j = window - 1; i <= offset; i++, j++) { // 确定窗口大小后，对偏移量进行遍历
+                int temp = i; // 用于暂存i，便于后续返回回文串时记录窗口的起始位置
+                while (i < j) { // 固定一个窗口的大小和偏移后，对窗口内的字符串用双指针遍历
                     if (s.charAt(i) != s.charAt(j)) {
                         flag = false;
                         break;
@@ -28,16 +33,16 @@ public class Longest_Palindromic_Substring {
                     i++;
                     j--;
                 }
-                if (flag) { //是最长的回文串
+                if (flag) { // 是最长的回文串
                     return s.substring(temp, temp + window);
-                } else { //不是最长的回文串，i、j、flag复原
+                } else { // 不是最长的回文串，i、j、flag复原
                     i = temp;
                     j = temp + window - 1;
                     flag = true;
                 }
             }
         }
-        return s.substring(0, 1); //最长回文串长度为1直接返回第一个字符
+        return s.substring(0, 1); // 最长回文串长度为1直接返回第一个字符
     }
 
     // 二刷
@@ -66,5 +71,40 @@ public class Longest_Palindromic_Substring {
             windowLength--;
         }
         return s.substring(0, 1);
+    }
+
+
+    // 三刷
+    public String longestPalindrome_3(String s) {
+        Map<Character, List<Integer>> map = new HashMap<>();
+        String ans = s.substring(0, 1);
+        for (int i = 0; i < s.length(); i++) {
+            char cur = s.charAt(i);
+            if (!map.containsKey(cur)) {
+                List<Integer> list = new ArrayList<>();
+                list.add(i);
+                map.put(cur, list);
+            } else {
+                for (int j = 0; j < map.get(cur).size(); j++) {
+                    boolean find = true;
+                    int left = map.get(cur).get(j);
+                    int right = i;
+                    while (left < right) {
+                        if (s.charAt(left) != s.charAt(right)) {
+                            find = false;
+                            break;
+                        }
+                        left++;
+                        right--;
+                    }
+                    if (find && i - map.get(cur).get(j) + 1 > ans.length()) {
+                        ans = s.substring(map.get(cur).get(j), i + 1);
+                        break;
+                    }
+                }
+                map.get(cur).add(i);
+            }
+        }
+        return ans;
     }
 }
