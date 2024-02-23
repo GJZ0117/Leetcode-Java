@@ -33,4 +33,31 @@ public class Find_K_Closest_Elements {
         Collections.sort(res);
         return res;
     }
+
+
+    // 二刷
+    public List<Integer> findClosestElements_2(int[] arr, int k, int x) {
+        TreeMap<Integer, List<Integer>> map = new TreeMap<>();
+        for (int j : arr) {
+            int diff = Math.abs(j - x);
+            if (map.containsKey(diff)) {
+                map.get(diff).add(j);
+            } else {
+                List<Integer> list = new ArrayList<>();
+                list.add(j);
+                map.put(diff, list);
+            }
+        }
+
+        List<Integer> ans = new ArrayList<>();
+        while (k > 0) {
+            List<Integer> list = map.firstEntry().getValue();
+            for (int i = 0; i < list.size() && k > 0; i++, k--) {
+                ans.add(list.get(i));
+            }
+            map.remove(map.firstKey());
+        }
+        Collections.sort(ans);
+        return ans;
+    }
 }
