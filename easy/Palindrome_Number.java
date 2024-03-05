@@ -32,4 +32,23 @@ public class Palindrome_Number {
         }
         return true;
     }
+
+
+    // 二刷
+    public boolean isPalindrome_2(int x) {
+        if (x < 0 || (x > 9 && x % 10 == 0)) {
+            return false;
+        }
+        String str = String.valueOf(Math.abs(x));
+        int i = 0;
+        int j = str.length() - 1;
+        while (i < j) {
+            if (str.charAt(i) != str.charAt(j)) {
+                return false;
+            }
+            i++;
+            j--;
+        }
+        return true;
+    }
 }
