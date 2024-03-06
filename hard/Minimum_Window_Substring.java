@@ -2,7 +2,6 @@ package hard;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  * 76. Minimum Window Substring
@@ -13,9 +12,9 @@ public class Minimum_Window_Substring {
     public static void main(String[] args) {
         String s = "ebbancf";
         String t = "abc";
-        //Scanner sc = new Scanner(System.in);
-        //s = sc.nextLine();
-        //t = sc.nextLine();
+        // Scanner sc = new Scanner(System.in);
+        // s = sc.nextLine();
+        // t = sc.nextLine();
         System.out.println(minWindow(s, t));
     }
 
@@ -37,37 +36,84 @@ public class Minimum_Window_Substring {
 
         int left = 0;
         int right = 0;
-        int valid = 0; //表示窗口中满足 need 条件的字符个数
+        int valid = 0; // 表示窗口中满足 need 条件的字符个数
 
-        int start = 0, len = Integer.MAX_VALUE; //记录最小覆盖子串的起始索引及长度
+        int start = 0, len = Integer.MAX_VALUE; // 记录最小覆盖子串的起始索引及长度
 
         while (right < s.length()) {
-            Character c = s.charAt(right); //c 是将移入窗口的字符
-            right++; //右移窗口
+            Character c = s.charAt(right); // c 是将移入窗口的字符
+            right++; // 右移窗口
 
-            if (need.containsKey(c)) { //进行窗口内数据更新
+            if (need.containsKey(c)) { // 进行窗口内数据更新
                 window.put(c, window.containsKey(c) ? window.get(c) + 1 : 1);
-                if (window.get(c).equals(need.get(c))) { //不能用==要用equals
+                if (window.get(c).equals(need.get(c))) { // 不能用==要用equals
                     valid++;
                 }
             }
 
-            while (valid == need.size()) { //判断左侧窗口是否要收缩
-                if (right - left < len) { //更新最小覆盖子串
+            while (valid == need.size()) { // 判断左侧窗口是否要收缩
+                if (right - left < len) { // 更新最小覆盖子串
                     start = left;
                     len = right - left;
                 }
-                Character d = s.charAt(left); //移出窗口的字符
-                left++; //左移窗口
-                if (need.containsKey(d)) { //进行窗口内数据更新
-                    if (window.get(d).equals(need.get(d))) { //不能用==要用equals
+                Character d = s.charAt(left); // 移出窗口的字符
+                left++; // 左移窗口
+                if (need.containsKey(d)) { // 进行窗口内数据更新
+                    if (window.get(d).equals(need.get(d))) { // 不能用==要用equals
                         valid--;
                     }
                     window.put(d, window.get(d) - 1);
                 }
             }
         }
-        //返回最小覆盖子串
+        // 返回最小覆盖子串
         return len == Integer.MAX_VALUE ? "" : s.substring(start, start + len);
+    }
+
+
+    // 二刷
+    public String minWindow_2(String s, String t) {
+        Map<Character, Integer> window = new HashMap<>();
+        Map<Character, Integer> need = new HashMap<>();
+        for (char c : t.toCharArray()) {
+            need.put(c, need.getOrDefault(c, 0) + 1);
+        }
+
+        int needSize = need.keySet().size();
+
+        int left = 0;
+        int right = 0;
+        int validChar = 0;
+        int start = 0;
+        int minWindowLen = Integer.MAX_VALUE;
+
+        while (right < s.length()) {
+            char cur = s.charAt(right);
+            right++;
+            if (need.containsKey(cur)) {
+                window.put(cur, window.getOrDefault(cur, 0) + 1);
+                if (need.get(cur).equals(window.get(cur))) {
+                    validChar++;
+                }
+            }
+
+            while (validChar == needSize) {
+                if (right - left < minWindowLen) {
+                    start = left;
+                    minWindowLen = right - left;
+                }
+
+                char del = s.charAt(left);
+                left++;
+
+                if (need.containsKey(del)) {
+                    if (window.get(del).equals(need.get(del))) {
+                        validChar--;
+                    }
+                    window.put(del, window.get(del) - 1);
+                }
+            }
+        }
+        return minWindowLen == Integer.MAX_VALUE ? "" : s.substring(start, start + minWindowLen);
     }
 }
