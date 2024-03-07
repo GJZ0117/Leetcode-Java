@@ -1,7 +1,6 @@
 package medium;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 567. Permutation in String
@@ -55,6 +54,56 @@ public class Permutation_in_String {
         }
         for (Character ch : map1.keySet()) {
             if (!map1.get(ch).equals(window.get(ch))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    // 二刷
+    public boolean checkInclusion_2(String s1, String s2) {
+        if (s1.length() > s2.length()) {
+            return false;
+        }
+        int[] need = new int[26];
+        int[] window = new int[26];
+        Set<Character> needChar = new HashSet<>();
+        for (char c : s1.toCharArray()) {
+            need[c - 'a']++;
+            needChar.add(c);
+        }
+
+        int left = 0;
+        int right = 0;
+
+        while (right < s1.length()) {
+            char c = s2.charAt(right);
+            window[c - 'a']++;
+            right++;
+        }
+        if (verify(needChar, need, window)) {
+            return true;
+        }
+
+        while (right < s2.length()) {
+            char c1 = s2.charAt(right);
+            char c2 = s2.charAt(left);
+            window[c1 - 'a']++;
+            window[c2 - 'a']--;
+            if (verify(needChar, need, window)) {
+                return true;
+            }
+            left++;
+            right++;
+        }
+
+        return false;
+    }
+
+    public boolean verify(Set<Character> needChar, int[] need, int[] window) {
+        for (char c : needChar) {
+            if (need[c - 'a'] != window[c - 'a']) {
                 return false;
             }
         }
