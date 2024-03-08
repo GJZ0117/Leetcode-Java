@@ -54,4 +54,56 @@ public class Find_All_Anagrams_in_a_String {
         }
         return list;
     }
+
+
+    // 二刷
+    public List<Integer> findAnagrams_2(String s, String p) {
+        List<Integer> list = new ArrayList<>();
+        if (s.length() < p.length()) {
+            return list;
+        }
+        int[] need = new int[26];
+        int[] window = new int[26];
+        Set<Character> needChar = new HashSet<>();
+
+        for (char c : p.toCharArray()) {
+            need[c - 'a']++;
+            needChar.add(c);
+        }
+
+        int left = 0;
+        int right = 0;
+
+        while (right < p.length()) {
+            char cur = s.charAt(right);
+            window[cur - 'a']++;
+            right++;
+        }
+        if (verify(needChar, need, window)) {
+            list.add(left);
+        }
+
+        while (right < s.length()) {
+            char c1 = s.charAt(right);
+            char c2 = s.charAt(left);
+            window[c1 - 'a']++;
+            window[c2 - 'a']--;
+            if (verify(needChar, need, window)) {
+                list.add(left + 1);
+            }
+            right++;
+            left++;
+        }
+
+        return list;
+    }
+
+    public boolean verify(Set<Character> needChar, int[] need, int[] window) {
+        for (char c : needChar) {
+            if (need[c - 'a'] != window[c - 'a']) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
