@@ -40,4 +40,25 @@ public class Minimum_Size_Subarray_Sum {
         }
         return minSize == Integer.MAX_VALUE ? 0 : minSize;
     }
+
+
+    // 三刷
+    public int minSubArrayLen_3(int target, int[] nums) {
+        int left = 0;
+        int right = 0;
+        int minLen = Integer.MAX_VALUE;
+        int sum = 0;
+        while (right < nums.length) {
+            sum += nums[right];
+            while (left < right && sum - nums[left] >= target) {
+                sum -= nums[left];
+                left++;
+            }
+            if (sum >= target) {
+                minLen = Math.min(minLen, right - left + 1);
+            }
+            right++;
+        }
+        return minLen == Integer.MAX_VALUE ? 0 : minLen;
+    }
 }
