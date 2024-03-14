@@ -1,6 +1,8 @@
 package easy;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -24,6 +26,24 @@ public class Contains_Duplicate_II {
             flag = set.add(nums[i]);
             if (!flag) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+
+    // 二刷
+    public boolean containsNearbyDuplicate_2(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (!map.containsKey(nums[i])) {
+                map.put(nums[i], i);
+            } else {
+                if (Math.abs(i - map.get(nums[i])) <= k) {
+                    return true;
+                } else {
+                    map.put(nums[i], i);
+                }
             }
         }
         return false;
