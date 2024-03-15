@@ -1,5 +1,6 @@
 package medium;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,5 +54,46 @@ public class Longest_Substring_with_At_Least_K_Repeating_Characters {
         }
         // 如果s中的每个字符出现的次数都大于k次，那么s就是要求的字符串，直接返回该字符串的长度
         return s.length();
+    }
+
+
+    // 三刷 双指针
+    // https://leetcode.cn/problems/longest-substring-with-at-least-k-repeating-characters/solutions/624045/xiang-jie-mei-ju-shuang-zhi-zhen-jie-fa-50ri1/?show=1
+    public int longestSubstring_3(String s, int k) {
+        int ans = 0;
+        int n = s.length();
+        char[] chars = s.toCharArray();
+        int[] count = new int[26];
+        for (int x = 1; x <= 26; x++) {
+            Arrays.fill(count, 0);
+            for (int i = 0, j = 0, charCount = 0, sum = 0; i < n; i++) {
+                int right = chars[i] - 'a';
+                count[right]++;
+                if (count[right] == 1) {
+                    charCount++;
+                }
+                if (count[right] == k) {
+                    sum++;
+                }
+
+                while (charCount > x) {
+                    int left = chars[j] - 'a';
+                    j++;
+                    count[left]--;
+                    if(count[left] == 0) {
+                        charCount--;
+                    }
+                    if (count[left] == k - 1) {
+                        sum--;
+                    }
+                }
+
+                if (charCount == sum) {
+                    ans = Math.max(ans, i - j + 1);
+                }
+            }
+        }
+
+        return ans;
     }
 }
