@@ -12,7 +12,7 @@ public class Longest_Repeating_Character_Replacement {
      * 替换后的最长重复子串就产生在右边界、左边界交替向右移动的过程中。
      */
     public int characterReplacement(String s, int k) {
-        int[] arr = new int[26]; //26个大写英文字母
+        int[] arr = new int[26]; // 26个大写英文字母
         int left = 0;
         int right = 0;
         int maxCount = 0;
@@ -36,5 +36,26 @@ public class Longest_Repeating_Character_Replacement {
             res = Math.max(res, right - left);
         }
         return res;
+    }
+
+
+    // 二刷（还不会）
+    public int characterReplacement_2(String s, int k) {
+        int[] map = new int[26];
+        char[] chars = s.toCharArray();
+        int left = 0;
+        int right = 0;
+        int maxLen = 0;
+        while (right < chars.length) {
+            int index = chars[right] - 'A';
+            map[index]++;
+            maxLen = Math.max(maxLen, map[index]);
+            if (right - left + 1 > maxLen + k) {
+                map[chars[left] - 'A']--;
+                left++;
+            }
+            right++;
+        }
+        return chars.length - left;
     }
 }
