@@ -16,14 +16,14 @@ public class Search_a_2D_Matrix {
         int n = matrix[0].length;
         int row = 0;
 
-        for (int i = 0; i < m; i++) { //找到第一次出现的最后一个元素大于target的行
+        for (int i = 0; i < m; i++) { // 找到第一次出现的最后一个元素大于target的行
             if (matrix[i][n - 1] >= target) {
                 row = i;
                 break;
             }
         }
 
-        for (int j = 0; j < n; j++) { //遍历找到的这行
+        for (int j = 0; j < n; j++) { // 遍历找到的这行
             if (matrix[row][j] == target) {
                 return true;
             }
@@ -31,7 +31,7 @@ public class Search_a_2D_Matrix {
                 return false;
             }
         }
-        return false; //大于矩阵中最大元素
+        return false; // 大于矩阵中最大元素
     }
 
 
@@ -53,7 +53,6 @@ public class Search_a_2D_Matrix {
                 break;
             }
         }
-        System.out.println("row finish:" + midRow);
         int startCol = 0;
         int endCol = n - 1;
         int midCol;
@@ -66,9 +65,40 @@ public class Search_a_2D_Matrix {
             } else {
                 return true;
             }
-            System.out.println(startCol + " " + midCol + " " + endCol + " " + matrix[midRow][midCol]);
         }
         return false;
     }
 
+
+    // 三刷
+    public boolean searchMatrix_3(int[][] matrix, int target) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int startRow = 0;
+        int endRow = m - 1;
+        int midRow = 0;
+        while (startRow <= endRow) {
+            midRow = startRow + (endRow - startRow) / 2;
+            if (matrix[midRow][0] > target) {
+                endRow = midRow - 1;
+            } else if (matrix[midRow][n - 1] < target) {
+                startRow = midRow + 1;
+            } else {
+                break;
+            }
+        }
+        int startCol = 0;
+        int endCol = n - 1;
+        while (startCol <= endCol) {
+            int midCol = startCol + (endCol - startCol) / 2;
+            if (matrix[midRow][midCol] > target) {
+                endCol = midCol - 1;
+            } else if (matrix[midRow][midCol] < target) {
+                startCol = midCol + 1;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
 }
