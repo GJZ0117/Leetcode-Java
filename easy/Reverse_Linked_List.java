@@ -42,4 +42,20 @@ public class Reverse_Linked_List {
         return h.next;
     }
 
+
+    // 二刷
+    public ListNode reverseList_2(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode newHead = new ListNode();
+        ListNode cur = head;
+        while (cur != null) {
+            ListNode next = cur.next;
+            cur.next = newHead.next;
+            newHead.next = cur;
+            cur = next;
+        }
+        return newHead.next;
+    }
 }
