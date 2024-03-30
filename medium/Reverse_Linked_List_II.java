@@ -72,4 +72,26 @@ public class Reverse_Linked_List_II {
         first.next = end;
         return newHead.next;
     }
+
+
+    // 三刷
+    public ListNode reverseBetween_3(ListNode head, int left, int right) {
+        int diff = right - left;
+        ListNode newHead = new ListNode();
+        newHead.next = head;
+        ListNode pre = newHead;
+        while (left > 1) {
+            pre = pre.next;
+            left--;
+        }
+        ListNode p = pre.next;
+        while (diff > 0) {
+            ListNode cur = p.next;
+            p.next = cur.next;
+            cur.next = pre.next;
+            pre.next = cur;
+            diff--;
+        }
+        return newHead.next;
+    }
 }
