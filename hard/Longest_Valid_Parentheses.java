@@ -1,6 +1,8 @@
 package hard;
 
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -53,5 +55,27 @@ public class Longest_Valid_Parentheses {
         }
 
         return maxLen;
+    }
+
+
+    // 二刷
+    // https://leetcode.cn/problems/longest-valid-parentheses/solutions/314683/zui-chang-you-xiao-gua-hao-by-leetcode-solution/?show=1
+    public int longestValidParentheses_2(String s) {
+        int maxAns = 0;
+        Deque<Integer> stack = new LinkedList<>();
+        stack.addLast(-1);
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                stack.addLast(i);
+            } else {
+                stack.pollLast();
+                if (stack.isEmpty()) {
+                    stack.addLast(i);
+                } else {
+                    maxAns = Math.max(maxAns, i - stack.peekLast());
+                }
+            }
+        }
+        return maxAns;
     }
 }
