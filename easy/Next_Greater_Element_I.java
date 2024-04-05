@@ -49,4 +49,25 @@ public class Next_Greater_Element_I {
         }
         return ans;
     }
+
+
+    // 二刷
+    // https://leetcode.cn/problems/next-greater-element-i/solutions/1065517/xia-yi-ge-geng-da-yuan-su-i-by-leetcode-bfcoj/
+    public int[] nextGreaterElement_2(int[] nums1, int[] nums2) {
+        Map<Integer, Integer> map = new HashMap<>();
+        Deque<Integer> stack = new LinkedList<>();
+        for (int i = nums2.length - 1; i >= 0; i--) {
+            int num = nums2[i];
+            while (!stack.isEmpty() && stack.peekLast() < num) {
+                stack.pollLast();
+            }
+            map.put(num, stack.isEmpty() ? -1 : stack.peekLast());
+            stack.addLast(num);
+        }
+        int[] ans = new int[nums1.length];
+        for (int i = 0; i < nums1.length; i++) {
+            ans[i] = map.get(nums1[i]);
+        }
+        return ans;
+    }
 }
