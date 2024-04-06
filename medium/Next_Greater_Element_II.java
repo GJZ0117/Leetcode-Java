@@ -3,6 +3,7 @@ package medium;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
+import java.util.LinkedList;
 
 /**
  * 503. Next Greater Element II
@@ -15,7 +16,7 @@ public class Next_Greater_Element_II {
         System.out.println(Arrays.toString(nextGreaterElements(nums)));
     }
 
-    //https://leetcode.cn/problems/next-greater-element-ii/solution/dong-hua-jiang-jie-dan-diao-zhan-by-fuxu-4z2g/
+    // https://leetcode.cn/problems/next-greater-element-ii/solution/dong-hua-jiang-jie-dan-diao-zhan-by-fuxu-4z2g/
     public static int[] nextGreaterElements(int[] nums) {
         int n = nums.length;
         int[] ans = new int[n];
@@ -26,6 +27,22 @@ public class Next_Greater_Element_II {
                 ans[stack.pop()] = nums[i % n];
             }
             stack.push(i % n);
+        }
+        return ans;
+    }
+
+
+    // 二刷
+    public int[] nextGreaterElements_2(int[] nums) {
+        int n = nums.length;
+        int[] ans = new int[n];
+        Arrays.fill(ans, -1);
+        Deque<Integer> stack = new LinkedList<>();
+        for (int i = 0; i < 2 * n; i++) {
+            while (!stack.isEmpty() && nums[stack.peekLast()] < nums[i % n]) {
+                ans[stack.pollLast()] = nums[i % n];
+            }
+            stack.addLast(i % n);
         }
         return ans;
     }
