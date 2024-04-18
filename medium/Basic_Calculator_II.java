@@ -2,6 +2,7 @@ package medium;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.LinkedList;
 import java.util.Stack;
 
 /**
@@ -102,6 +103,54 @@ public class Basic_Calculator_II {
             }
         }
 
+        while (!opStack.isEmpty()) {
+            int n1 = numStack.removeFirst();
+            int n2 = numStack.removeFirst();
+            char op = opStack.removeFirst();
+            if (op == '+') {
+                numStack.addFirst(n1 + n2);
+            } else if (op == '-') {
+                numStack.addFirst(n1 - n2);
+            }
+        }
+        return numStack.removeFirst();
+    }
+
+
+    // 三刷
+    public int calculate_3(String s) {
+        Deque<Integer> numStack = new LinkedList<>();
+        Deque<Character> opStack = new LinkedList<>();
+        s = s.replaceAll(" ", "");
+        for (int i = 0; i < s.length(); i++) {
+            char curChar = s.charAt(i);
+            if (Character.isDigit(curChar)) {
+                int num = 0;
+                int j = i;
+                while(j < s.length() && Character.isDigit(s.charAt(j))) {
+                    num = num * 10 + (s.charAt(j) - '0');
+                    j++;
+                }
+                i = j - 1;
+                numStack.addLast(num);
+            } else if (curChar == '+' || curChar == '-') {
+                opStack.addLast(curChar);
+            } else if (curChar == '*' || curChar == '/') {
+                int n1 = numStack.removeLast();
+                int n2 = 0;
+                int j = i + 1;
+                while (j < s.length() && Character.isDigit(s.charAt(j))) {
+                    n2 = n2 * 10 + (s.charAt(j) - '0');
+                    j++;
+                }
+                i = j - 1;
+                if (curChar == '*') {
+                    numStack.addLast(n1 * n2);
+                } else {
+                    numStack.addLast(n1 / n2);
+                }
+            }
+        }
         while (!opStack.isEmpty()) {
             int n1 = numStack.removeFirst();
             int n2 = numStack.removeFirst();
