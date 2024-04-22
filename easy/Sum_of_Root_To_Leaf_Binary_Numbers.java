@@ -46,4 +46,45 @@ public class Sum_of_Root_To_Leaf_Binary_Numbers {
             }
         }
     }
+
+
+    // 二刷
+    public int sumRootToLeaf_2(TreeNode root) {
+        StringBuilder sb = new StringBuilder();
+        dfs(root, sb);
+        return ans;
+    }
+
+    int ans = 0;
+
+    public void dfs(TreeNode root, StringBuilder sb) {
+        if (root != null) {
+            sb.append(root.val);
+            if (root.left == null && root.right == null) {
+                int num = 0;
+                for (int i = sb.length() - 1; i >= 0; i--) {
+                    int cur = sb.charAt(i) == '0' ? 0 : 1;
+                    if (cur == 1) {
+                        num += (1 << (sb.length() - 1 - i));
+                    }
+                }
+                ans += num;
+                return;
+            }
+
+            if (root.left != null) {
+                dfs(root.left, sb);
+                if (sb.length() > 0) {
+                    sb.deleteCharAt(sb.length() - 1);
+                }
+            }
+
+            if (root.right != null) {
+                dfs(root.right, sb);
+                if (sb.length() > 0) {
+                    sb.deleteCharAt(sb.length() - 1);
+                }
+            }
+        }
+    }
 }
