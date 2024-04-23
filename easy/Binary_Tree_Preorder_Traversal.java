@@ -28,4 +28,22 @@ public class Binary_Tree_Preorder_Traversal {
         }
         return ans;
     }
+
+
+    // 二刷
+    public List<Integer> preorderTraversal_2(TreeNode root) {
+        preOrder(root);
+        return list;
+    }
+
+    List<Integer> list = new ArrayList<>();
+
+    public void preOrder(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        list.add(node.val);
+        preOrder(node.left);
+        preOrder(node.right);
+    }
 }
