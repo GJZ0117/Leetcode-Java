@@ -25,4 +25,26 @@ public class Balanced_Binary_Tree {
         }
         return Math.max(leftHeight, rightHeight) + 1;
     }
+
+
+    // 二刷
+    public boolean isBalanced_2(TreeNode root) {
+        postOrder(root);
+        return flag;
+    }
+
+    boolean flag = true;
+
+    public int postOrder(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+
+        int leftHeight = postOrder(node.left);
+        int rightHeight = postOrder(node.right);
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            flag = false;
+        }
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
 }
