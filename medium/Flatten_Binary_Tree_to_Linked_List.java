@@ -43,4 +43,19 @@ public class Flatten_Binary_Tree_to_Linked_List {
         root.left = null;
         prev = root;
     }
+
+
+    // 三刷
+    private TreeNode prevNode = null;
+
+    public void flatten_3(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        flatten_3(root.right);
+        flatten_3(root.left);
+        root.right = prevNode;
+        root.left = null;
+        prevNode = root;
+    }
 }
