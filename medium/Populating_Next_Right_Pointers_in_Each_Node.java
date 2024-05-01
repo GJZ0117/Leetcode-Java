@@ -46,7 +46,7 @@ public class Populating_Next_Right_Pointers_in_Each_Node {
     }
 
 
-    //cost too much space
+    // cost too much space
     public Node connect(Node root) {
         if (root == null) {
             return null;
@@ -101,6 +101,31 @@ public class Populating_Next_Right_Pointers_in_Each_Node {
                 }
                 if (p.right != null) {
                     deque.addLast(p.right);
+                }
+            }
+        }
+        return root;
+    }
+
+
+    // 三刷
+    public Node connect_3(Node root) {
+        Deque<Node> queue = new ArrayDeque<>();
+        if (root == null) {
+            return root;
+        }
+        queue.addLast(root);
+        while (!queue.isEmpty()) {
+            int len = queue.size();
+            while (len > 0) {
+                len--;
+                Node p = queue.pollFirst();
+                p.next = len == 0 ? null : queue.peekFirst();
+                if (p.left != null) {
+                    queue.addLast(p.left);
+                }
+                if (p.right != null) {
+                    queue.addLast(p.right);
                 }
             }
         }
