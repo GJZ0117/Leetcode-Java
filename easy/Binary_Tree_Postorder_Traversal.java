@@ -33,4 +33,21 @@ public class Binary_Tree_Postorder_Traversal {
         }
         return ans;
     }
+
+
+    // 二刷
+    public List<Integer> postorderTraversal_2(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        postOrder(root, list);
+        return list;
+    }
+
+    public void postOrder(TreeNode node, List<Integer> list) {
+        if (node == null) {
+            return;
+        }
+        postOrder(node.left, list);
+        postOrder(node.right, list);
+        list.add(node.val);
+    }
 }
