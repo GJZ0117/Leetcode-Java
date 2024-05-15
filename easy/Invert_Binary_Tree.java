@@ -19,4 +19,18 @@ public class Invert_Binary_Tree {
         }
         return root;
     }
+
+
+    // 二刷
+    public TreeNode invertTree_2(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        invertTree_2(root.left);
+        invertTree_2(root.right);
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+        return root;
+    }
 }
