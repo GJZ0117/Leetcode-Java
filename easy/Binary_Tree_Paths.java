@@ -39,4 +39,37 @@ public class Binary_Tree_Paths {
         }
         list.remove(list.size() - 1);
     }
+
+
+    // 二刷
+    public List<String> binaryTreePaths_2(TreeNode root) {
+        List<String> list = new ArrayList<>();
+        if (root.left == null && root.right == null) {
+            list.add(String.valueOf(root.val));
+            return list;
+        }
+        dfs(root, list, new ArrayList<>());
+        return list;
+    }
+
+    public void dfs(TreeNode node, List<String> list, List<Integer> path) {
+        path.add(node.val);
+        if (node.left == null && node.right == null) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < path.size(); i++) {
+                sb.append(path.get(i));
+                if (i != path.size() - 1) {
+                    sb.append("->");
+                }
+            }
+            list.add(sb.toString());
+        }
+        if (node.left != null) {
+            dfs(node.left, list, path);
+        }
+        if (node.right != null) {
+            dfs(node.right, list, path);
+        }
+        path.remove(path.size() - 1);
+    }
 }
