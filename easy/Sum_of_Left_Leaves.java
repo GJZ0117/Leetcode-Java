@@ -31,4 +31,24 @@ public class Sum_of_Left_Leaves {
         }
         return ans;
     }
+
+
+    // 二刷
+    public int sumOfLeftLeaves_2(TreeNode root) {
+        preOrder(root, false);
+        return res;
+    }
+
+    int res = 0;
+
+    public void preOrder(TreeNode node, boolean isLeft) {
+        if (node == null) {
+            return;
+        }
+        if (node.left == null && node.right == null && isLeft) {
+            res += node.val;
+        }
+        preOrder(node.left, true);
+        preOrder(node.right, false);
+    }
 }
