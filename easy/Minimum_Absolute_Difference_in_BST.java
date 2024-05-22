@@ -23,4 +23,30 @@ public class Minimum_Absolute_Difference_in_BST {
             inOrder(cur.right, preValue, minDiff);
         }
     }
+
+
+    // 二刷
+    public int getMinimumDifference_2(TreeNode root) {
+        inOrderTraversal(root);
+        return ans;
+    }
+
+    int ans = Integer.MAX_VALUE;
+    Integer pre = null;
+
+    public void inOrderTraversal(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        inOrderTraversal(node.left);
+
+        if (pre == null) {
+            pre = node.val;
+        } else {
+            ans = Math.min(ans, Math.abs(pre - node.val));
+            pre = node.val;
+        }
+
+        inOrderTraversal(node.right);
+    }
 }
