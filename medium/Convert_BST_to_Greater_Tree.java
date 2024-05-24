@@ -22,4 +22,24 @@ public class Convert_BST_to_Greater_Tree {
             rightToLeft(node.left);
         }
     }
+
+
+    // 二刷
+    public TreeNode convertBST_2(TreeNode root) {
+        inOrder(root);
+        return root;
+    }
+
+    int preTotal = 0;
+
+    public void inOrder(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        inOrder(node.right);
+        int cur = node.val;
+        node.val += preTotal;
+        preTotal += cur;
+        inOrder(node.left);
+    }
 }
