@@ -1,8 +1,6 @@
 package easy;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * 559. Maximum Depth of N-ary Tree
@@ -41,6 +39,29 @@ public class Maximum_Depth_of_N_ary_Tree {
                 while (!p.children.isEmpty()) {
                     queue.add(p.children.get(0));
                     p.children.remove(0);
+                }
+                len--;
+            }
+        }
+        return depth;
+    }
+
+
+    // 二刷
+    public int maxDepth_2(NaryNode root) {
+        if (root == null) {
+            return 0;
+        }
+        Deque<NaryNode> queue = new ArrayDeque<>();
+        queue.addLast(root);
+        int depth = 0;
+        while (!queue.isEmpty()) {
+            depth++;
+            int len = queue.size();
+            while (len > 0) {
+                NaryNode cur = queue.pollFirst();
+                for (NaryNode node : cur.children) {
+                    queue.addLast(node);
                 }
                 len--;
             }
