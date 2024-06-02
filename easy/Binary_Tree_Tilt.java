@@ -20,4 +20,23 @@ public class Binary_Tree_Tilt {
         tilt[0] += Math.abs(left - right);
         return left + right + cur.val;
     }
+
+
+    // 二刷
+    public int findTilt_2(TreeNode root) {
+        postOrderTraversal(root);
+        return ans;
+    }
+
+    int ans = 0;
+
+    public int postOrderTraversal(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int left = postOrderTraversal(root.left);
+        int right = postOrderTraversal(root.right);
+        ans += Math.abs(left - right);
+        return left + right + root.val;
+    }
 }
