@@ -36,4 +36,35 @@ public class Subtree_of_Another_Tree {
             return compare(p.left, q.left) && compare(p.right, q.right);
         }
     }
+
+
+    // 二刷
+    public boolean isSubtree_2(TreeNode root, TreeNode subRoot) {
+        if (root != null) {
+            if (root.val == subRoot.val) {
+                if (check(root, subRoot)) {
+                    return true;
+                }
+            }
+            if (isSubtree(root.left, subRoot)) {
+                return true;
+            }
+            if (isSubtree(root.right, subRoot)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean check(TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
+            return true;
+        } else if (p == null || q == null) {
+            return false;
+        } else if (p.val != q.val) {
+            return false;
+        } else {
+            return check(p.left, q.left) && check(p.right, q.right);
+        }
+    }
 }
