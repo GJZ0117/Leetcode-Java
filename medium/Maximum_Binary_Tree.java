@@ -28,4 +28,29 @@ public class Maximum_Binary_Tree {
         }
         return index;
     }
+
+
+    // 二刷
+    public TreeNode constructMaximumBinaryTree_2(int[] nums) {
+        return build(nums, 0, nums.length - 1);
+    }
+
+    public TreeNode build(int[] arr, int left, int right) {
+        if (left > right) {
+            return null;
+        }
+        int maxIndex = findMaxIndex(arr, left, right);
+        TreeNode node = new TreeNode(arr[maxIndex]);
+        node.left = build(arr, left, maxIndex - 1);
+        node.right = build(arr, maxIndex + 1, right);
+        return node;
+    }
+
+    public int findMaxIndex(int[] arr, int left, int right) {
+        int index = left;
+        for (int i = left + 1; i <= right; i++) {
+            index = arr[i] > arr[index] ? i : index;
+        }
+        return index;
+    }
 }
