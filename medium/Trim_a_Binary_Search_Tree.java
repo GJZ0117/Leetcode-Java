@@ -19,4 +19,21 @@ public class Trim_a_Binary_Search_Tree {
         root.right = trimBST(root.right, low, high);
         return root;
     }
+
+
+    // 二刷
+    public TreeNode trimBST_2(TreeNode root, int low, int high) {
+        if (root == null) {
+            return null;
+        }
+        if (root.val < low) {
+            return trimBST_2(root.right, low, high);
+        } else if (root.val > high) {
+            return trimBST_2(root.left, low, high);
+        }
+
+        root.left = trimBST_2(root.left, low, high);
+        root.right = trimBST_2(root.right, low, high);
+        return root;
+    }
 }
