@@ -38,4 +38,35 @@ public class Longest_Univalue_Path {
             return 0;
         }
     }
+
+
+    // 二刷
+    public int longestUnivaluePath_2(TreeNode root) {
+        postOrderTraversal(root);
+        return maxLen;
+    }
+
+    int maxLen = 0;
+
+    public int postOrderTraversal(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftSameCount = postOrderTraversal(root.left);
+        int rightSameCount = postOrderTraversal(root.right);
+
+        int count = 0;
+        int res = 0;
+
+        if (root.left != null && root.left.val == root.val) {
+            count += leftSameCount + 1;
+            res = leftSameCount + 1;
+        }
+        if (root.right != null && root.right.val == root.val) {
+            count += rightSameCount + 1;
+            res = Math.max(res, rightSameCount + 1);
+        }
+        maxLen = Math.max(maxLen, count);
+        return res;
+    }
 }
