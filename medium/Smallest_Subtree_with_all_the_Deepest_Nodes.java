@@ -26,4 +26,30 @@ public class Smallest_Subtree_with_all_the_Deepest_Nodes {
         }
         return curDepth;
     }
+
+
+    // 二刷
+    public TreeNode subtreeWithAllDeepest_2(TreeNode root) {
+        if (root == null) {
+            return root;
+        }
+        int leftMaxDepth = getMaxDepth(root.left);
+        int rightMaxDepth = getMaxDepth(root.right);
+
+        if (leftMaxDepth == rightMaxDepth) {
+            return root;
+        } else if (leftMaxDepth > rightMaxDepth) {
+            return subtreeWithAllDeepest_2(root.left);
+        } else {
+            return subtreeWithAllDeepest_2(root.right);
+        }
+
+    }
+
+    public int getMaxDepth(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+        return Math.max(getMaxDepth(node.left), getMaxDepth(node.right)) + 1;
+    }
 }
