@@ -28,4 +28,35 @@ public class Univalued_Binary_Tree {
         }
         return true;
     }
+
+
+    // 二刷
+    int value = 0;
+    boolean flag = true;
+
+    public boolean isUnivalTree_2(TreeNode root) {
+        if (root != null) {
+            value = root.val;
+            preOrder(root);
+            return flag;
+        } else {
+            return true;
+        }
+    }
+
+    public void preOrder(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        if (node.val != value) {
+            flag = false;
+            return;
+        }
+        if (flag) {
+            preOrder(node.left);
+        }
+        if (flag) {
+            preOrder(node.right);
+        }
+    }
 }
