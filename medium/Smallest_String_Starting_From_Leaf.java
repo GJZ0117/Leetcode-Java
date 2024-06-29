@@ -26,4 +26,30 @@ public class Smallest_String_Starting_From_Leaf {
             sb.deleteCharAt(0);
         }
     }
+
+
+    // 二刷
+    public String smallestFromLeaf_2(TreeNode root) {
+        dfs(root, new StringBuilder());
+        return ans;
+    }
+
+    String ans = "~";
+
+    public void dfs(TreeNode node, StringBuilder sb) {
+        if (node == null) {
+            return;
+        }
+        sb.append((char) ('a' + node.val));
+        if (node.left == null && node.right == null) {
+            String str = sb.reverse().toString();
+            sb.reverse();
+            if (str.compareTo(ans) < 0) {
+                ans = str;
+            }
+        }
+        dfs(node.left, sb);
+        dfs(node.right, sb);
+        sb.deleteCharAt(sb.length() - 1);
+    }
 }
