@@ -39,4 +39,30 @@ public class Cousins_in_Binary_Tree {
             depth[0]--;
         }
     }
+
+
+    // 二刷
+    public boolean isCousins_2(TreeNode root, int x, int y) {
+        preOrder(root, 0, x, y);
+        return depth[0] == depth[1] && !(root.left != null && root.right != null && ((root.left.val == x && root.right.val == y) || (root.left.val == y && root.right.val == x)));
+    }
+
+    int[] depth = new int[2];
+    int depthIndex = 0;
+    TreeNode parent;
+
+    public void preOrder(TreeNode node, int curDepth, int x, int y) {
+        if (node == null) {
+            return;
+        }
+        if (node.left != null && (node.left.val == x || node.left.val == y)) {
+            depth[depthIndex++] = curDepth + 1;
+            parent = node;
+        } else if (node.right != null && (node.right.val == x || node.right.val == y)) {
+            depth[depthIndex++] = curDepth + 1;
+            parent = node;
+        }
+        preOrder(node.left, curDepth + 1, x, y);
+        preOrder(node.right, curDepth + 1, x, y);
+    }
 }
