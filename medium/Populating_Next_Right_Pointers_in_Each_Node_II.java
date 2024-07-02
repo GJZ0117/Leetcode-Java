@@ -2,6 +2,7 @@ package medium;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.LinkedList;
 
 /**
  * 117. Populating Next Right Pointers in Each Node II
@@ -59,6 +60,31 @@ public class Populating_Next_Right_Pointers_in_Each_Node_II {
                 }
                 if (p.right != null) {
                     deque.addLast(p.right);
+                }
+            }
+        }
+        return root;
+    }
+
+
+    // 三刷
+    public Node connect_3(Node root) {
+        if (root == null) {
+            return root;
+        }
+        Deque<Node> queue = new LinkedList<>();
+        queue.addLast(root);
+        while (!queue.isEmpty()) {
+            int len = queue.size();
+            while (len > 0) {
+                len--;
+                Node cur = queue.removeFirst();
+                cur.next = len == 0 ? null : queue.peekFirst();
+                if (cur.left != null) {
+                    queue.add(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.add(cur.right);
                 }
             }
         }
