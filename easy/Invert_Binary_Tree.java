@@ -33,4 +33,18 @@ public class Invert_Binary_Tree {
         root.right = temp;
         return root;
     }
+
+
+    // 三刷
+    public TreeNode invertTree_3(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        invertTree_3(root.left);
+        invertTree_3(root.right);
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+        return root;
+    }
 }
