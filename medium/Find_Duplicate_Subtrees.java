@@ -29,4 +29,26 @@ public class Find_Duplicate_Subtrees {
         map.put(key, map.getOrDefault(key, 0) + 1);
         return key;
     }
+
+
+    // 二刷
+    Map<String, Integer> subTreeMap = new HashMap<>();
+    List<TreeNode> list = new ArrayList<>();
+
+    public List<TreeNode> findDuplicateSubtrees_2(TreeNode root) {
+        preOrder(root);
+        return list;
+    }
+
+    public String preOrder(TreeNode node) {
+        if (node == null) {
+            return "";
+        }
+        String str = new StringBuilder().append(node.val).append(",").append(preOrder(node.left)).append(",").append(preOrder(node.right)).toString();
+        if (subTreeMap.getOrDefault(str, 0) == 1) {
+            list.add(node);
+        }
+        subTreeMap.put(str, subTreeMap.getOrDefault(str, 0) + 1);
+        return str;
+    }
 }
