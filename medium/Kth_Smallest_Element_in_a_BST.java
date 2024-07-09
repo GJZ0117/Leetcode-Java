@@ -27,4 +27,26 @@ public class Kth_Smallest_Element_in_a_BST {
         }
         return -1;
     }
+
+
+    // 二刷
+    public int kthSmallest_2(TreeNode root, int k) {
+        inOrder(root, k);
+        return ans;
+    }
+
+    int ans = 0;
+    int count = 0;
+
+    public void inOrder(TreeNode node, int k) {
+        if (node == null) {
+            return;
+        }
+        inOrder(node.left, k);
+        count++;
+        if (count == k) {
+            ans = node.val;
+        }
+        inOrder(node.right, k);
+    }
 }
