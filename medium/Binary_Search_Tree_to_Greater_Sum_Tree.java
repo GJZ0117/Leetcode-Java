@@ -20,4 +20,23 @@ public class Binary_Search_Tree_to_Greater_Sum_Tree {
             inOrder(node.left);
         }
     }
+
+
+    // 二刷
+    public TreeNode bstToGst_2(TreeNode root) {
+        inOrderTraversal(root);
+        return root;
+    }
+
+    int curSum = 0;
+
+    public void inOrderTraversal(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        inOrderTraversal(node.right);
+        curSum += node.val;
+        node.val = curSum;
+        inOrderTraversal(node.left);
+    }
 }
