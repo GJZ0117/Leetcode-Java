@@ -13,20 +13,46 @@ public class Insert_into_a_Binary_Search_Tree {
                 pre = cur;
                 if (cur.val < val) {
                     cur = cur.right;
-                }else if (cur.val > val) {
+                } else if (cur.val > val) {
                     cur = cur.left;
-                }else {
+                } else {
                     break;
                 }
             }
             TreeNode node = new TreeNode(val);
             if (pre.val > val) {
                 pre.left = node;
-            }else if (pre.val < val){
+            } else if (pre.val < val) {
                 pre.right = node;
             }
-        }else {
+        } else {
             root = new TreeNode(val);
+        }
+        return root;
+    }
+
+
+    // 二刷
+    public TreeNode insertIntoBST_2(TreeNode root, int val) {
+        if (root == null) {
+            return null;
+        }
+        TreeNode node = new TreeNode(val);
+        TreeNode cur = root;
+        while (true) {
+            if (cur.val > val) {
+                if (cur.left == null) {
+                    cur.left = node;
+                    break;
+                }
+                cur = cur.left;
+            } else {
+                if (cur.right == null) {
+                    cur.right = node;
+                    break;
+                }
+                cur = cur.right;
+            }
         }
         return root;
     }
