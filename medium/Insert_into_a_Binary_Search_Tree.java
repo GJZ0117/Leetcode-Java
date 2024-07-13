@@ -34,10 +34,10 @@ public class Insert_into_a_Binary_Search_Tree {
 
     // 二刷
     public TreeNode insertIntoBST_2(TreeNode root, int val) {
-        if (root == null) {
-            return null;
-        }
         TreeNode node = new TreeNode(val);
+        if (root == null) {
+            return node;
+        }
         TreeNode cur = root;
         while (true) {
             if (cur.val > val) {
