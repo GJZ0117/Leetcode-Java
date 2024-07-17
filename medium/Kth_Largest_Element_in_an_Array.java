@@ -1,6 +1,7 @@
 package medium;
 
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.TreeMap;
 
 /**
@@ -74,5 +75,18 @@ public class Kth_Largest_Element_in_an_Array {
             }
         }
         return entry.getKey();
+    }
+
+
+    // 三刷
+    public int findKthLargest_3(int[] nums, int k) {
+        PriorityQueue<Integer> heap = new PriorityQueue<>();
+        for (int num : nums) {
+            heap.add(num);
+            if (heap.size() > k) {
+                heap.poll();
+            }
+        }
+        return heap.peek();
     }
 }
