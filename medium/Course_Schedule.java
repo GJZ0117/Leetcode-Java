@@ -1,9 +1,6 @@
 package medium;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 207. Course Schedule
@@ -109,5 +106,36 @@ public class Course_Schedule {
             }
         }
         return -1;
+    }
+
+
+    // 三刷
+    public boolean canFinish_3(int numCourses, int[][] prerequisites) {
+        int[] indegrees = new int[numCourses];
+        List<List<Integer>> adjacent = new ArrayList<>();
+        Deque<Integer> queue = new ArrayDeque<>();
+        for (int i = 0; i < numCourses; i++) {
+            adjacent.add(new ArrayList<>());
+        }
+        for (int[] pair : prerequisites) {
+            indegrees[pair[0]]++;
+            adjacent.get(pair[1]).add(pair[0]);
+        }
+        for (int i = 0; i < numCourses; i++) {
+            if (indegrees[i] == 0) {
+                queue.addLast(i);
+            }
+        }
+        while (!queue.isEmpty()) {
+            int cur = queue.removeFirst();
+            numCourses--;
+            for (int adj : adjacent.get(cur)) {
+                indegrees[adj]--;
+                if (indegrees[adj] == 0) {
+                    queue.addLast(adj);
+                }
+            }
+        }
+        return numCourses == 0;
     }
 }
