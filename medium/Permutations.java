@@ -76,4 +76,34 @@ public class Permutations {
         nums[i] = nums[j];
         nums[j] = temp;
     }
+
+
+    // 三刷
+    public List<List<Integer>> permute_3(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        traversal(nums, 0, ans);
+        return ans;
+    }
+
+    public void traversal(int[] nums, int index, List<List<Integer>> ans) {
+        if (index == nums.length) {
+            List<Integer> list = new ArrayList<>();
+            for (int n : nums) {
+                list.add(n);
+            }
+            ans.add(list);
+        } else {
+            for (int i = index; i < nums.length; i++) {
+                swapArr(nums, index, i);
+                traversal(nums, index + 1, ans);
+                swapArr(nums, index, i);
+            }
+        }
+    }
+
+    public void swapArr(int[] num, int i, int j) {
+        int temp = num[i];
+        num[i] = num[j];
+        num[j] = temp;
+    }
 }
