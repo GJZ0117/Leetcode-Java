@@ -29,4 +29,24 @@ public class Path_Sum {
         }
         return false;
     }
+
+
+    // 二刷
+    public boolean hasPathSum_2(TreeNode root, int targetSum) {
+        preOrder(root, targetSum, 0);
+        return flag;
+    }
+
+    boolean flag = false;
+
+    public void preOrder(TreeNode node, int targetSum, int curSum) {
+        if (node == null) {
+            return;
+        }
+        if (node.left == null && node.right == null && curSum + node.val == targetSum) {
+            flag = true;
+        }
+        preOrder(node.left, targetSum, curSum + node.val);
+        preOrder(node.right, targetSum, curSum + node.val);
+    }
 }
