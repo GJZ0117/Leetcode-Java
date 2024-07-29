@@ -70,4 +70,35 @@ public class Path_Sum_II {
 
         list.remove(list.size() - 1);
     }
+
+
+    // 三刷
+    public List<List<Integer>> pathSum_3(TreeNode root, int targetSum) {
+        List<Integer> list = new ArrayList<>();
+        List<List<Integer>> ans = new ArrayList<>();
+        if (root == null) {
+            return ans;
+        }
+        preOrderTraversal(root, targetSum, 0, ans, list);
+        return ans;
+    }
+
+    public void preOrderTraversal(TreeNode node, int targetSum, int curSum, List<List<Integer>> ans, List<Integer> list) {
+        list.add(node.val);
+        if (node.left == null && node.right == null) {
+            if (curSum + node.val == targetSum) {
+                List<Integer> temp = new ArrayList<>(list);
+                ans.add(temp);
+            }
+            list.remove(list.size() - 1);
+            return;
+        }
+        if (node.left != null) {
+            preOrderTraversal(node.left, targetSum, curSum + node.val, ans, list);
+        }
+        if (node.right != null) {
+            preOrderTraversal(node.right, targetSum, curSum + node.val, ans, list);
+        }
+        list.remove(list.size() - 1);
+    }
 }
