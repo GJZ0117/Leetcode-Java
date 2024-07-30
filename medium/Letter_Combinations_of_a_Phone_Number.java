@@ -47,7 +47,7 @@ public class Letter_Combinations_of_a_Phone_Number {
 
     public void dfs(String digits, int digitsIndex, String[] chars, List<String> res, StringBuilder sb) {
         if (digitsIndex == digits.length()) {
-            if (sb.length() > 0){
+            if (sb.length() > 0) {
                 res.add(sb.toString());
             }
             return;
@@ -56,6 +56,30 @@ public class Letter_Combinations_of_a_Phone_Number {
         for (int i = 0; i < nums.length(); i++) {
             sb.append(nums.charAt(i));
             dfs(digits, digitsIndex + 1, chars, res, sb);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+    }
+
+
+    // 三刷
+    public List<String> letterCombinations_3(String digits) {
+        List<String> ans = new ArrayList<>();
+        String[] chars = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        build(digits, 0, chars, ans, new StringBuilder());
+        return ans;
+    }
+
+    public void build(String digits, int index, String[] chars, List<String> ans, StringBuilder sb) {
+        if (sb.length() == digits.length()) {
+            if (sb.length() > 0) {
+                ans.add(sb.toString());
+            }
+            return;
+        }
+        String num = chars[digits.charAt(index) - '0'];
+        for (int i = 0; i < num.length(); i++) {
+            sb.append(num.charAt(i));
+            build(digits, index + 1, chars, ans, sb);
             sb.deleteCharAt(sb.length() - 1);
         }
     }
