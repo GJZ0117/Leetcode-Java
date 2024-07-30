@@ -60,4 +60,23 @@ public class Generate_Parentheses {
         }
     }
 
+
+    // 三刷
+    public List<String> generateParenthesis_3(int n) {
+        List<String> ans = new ArrayList<>();
+        dfs("", ans, 0, 0, n);
+        return ans;
+    }
+
+    public void dfs(String path, List<String> ans, int left, int right, int n) {
+        if (left > n || right > left) {
+            return;
+        }
+        if (path.length() == 2 * n) {
+            ans.add(path);
+            return;
+        }
+        dfs(path + "(", ans, left + 1, right, n);
+        dfs(path + ")", ans, left, right + 1, n);
+    }
 }
