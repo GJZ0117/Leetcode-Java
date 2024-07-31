@@ -27,14 +27,14 @@ public class Combination_Sum {
     }
 
     public static void combinate(int[] candidates, int target, List<Integer> list, int curSum, int curIndex, List<List<Integer>> ans) {
-        if (curSum > target) { //curSum大于target，回溯
+        if (curSum > target) { // curSum大于target，回溯
             return;
-        } else if (curSum == target) { //curSum等于target，添加到ans中
+        } else if (curSum == target) { // curSum等于target，添加到ans中
             List<Integer> tempList = new ArrayList<>();
             tempList.addAll(list);
             ans.add(tempList);
             return;
-        } else { //curSum小于target，采用回溯法递归遍历
+        } else { // curSum小于target，采用回溯法递归遍历
             for (int i = curIndex; i < candidates.length; i++) {
                 curSum = curSum + candidates[i];
                 list.add(candidates[i]);
@@ -65,6 +65,28 @@ public class Combination_Sum {
             for (int i = index; i < candidates.length; i++) {
                 list.add(candidates[i]);
                 dfs(candidates, target, res, list, i, curSum + candidates[i]);
+                list.remove(list.size() - 1);
+            }
+        }
+    }
+
+
+    // 三刷
+    public List<List<Integer>> combinationSum_3(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        traversal(candidates, 0, target, 0, ans, new ArrayList<>());
+        return ans;
+    }
+
+    public void traversal(int[] candidates, int index, int target, int curSum, List<List<Integer>> ans, List<Integer> list) {
+        if (curSum > target) {
+            return;
+        } else if (curSum == target) {
+            ans.add(new ArrayList<>(list));
+        } else {
+            for (int i = index; i < candidates.length; i++) {
+                list.add(candidates[i]);
+                traversal(candidates, i, target, curSum + candidates[i], ans, list);
                 list.remove(list.size() - 1);
             }
         }
