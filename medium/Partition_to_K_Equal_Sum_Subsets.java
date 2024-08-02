@@ -40,4 +40,38 @@ public class Partition_to_K_Equal_Sum_Subsets {
         }
         return false;
     }
+
+
+    // 二刷
+    public boolean canPartitionKSubsets_2(int[] nums, int k) {
+        boolean[] visited = new boolean[nums.length];
+        int sum = Arrays.stream(nums).sum();
+        if (nums[nums.length - 1] > sum / k || sum % k != 0) {
+            return false;
+        }
+        return traversal(nums, nums.length - 1, sum / k, 0, k, visited);
+    }
+
+    public boolean traversal(int[] nums, int end, int target, int current, int step, boolean[] visited) {
+        if (step == 1) {
+            return true;
+        }
+        if (current == target) {
+            return traversal(nums, nums.length - 1, target, 0, step - 1, visited);
+        }
+        for (int i = end; i >= 0; i--) {
+            if (visited[i] || current + nums[i] > target) {
+                continue;
+            }
+            visited[i] = true;
+            if (traversal(nums, i - 1, target, current + nums[i], step, visited)) {
+                return true;
+            }
+            visited[i] = false;
+            while (i > 0 && nums[i - 1] == nums[i]) {
+                i--;
+            }
+        }
+        return false;
+    }
 }
