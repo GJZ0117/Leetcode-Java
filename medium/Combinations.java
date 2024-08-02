@@ -57,4 +57,24 @@ public class Combinations {
             list.remove(list.size() - 1);
         }
     }
+
+
+    // 二刷
+    public List<List<Integer>> combine_3(int n, int k) {
+        List<List<Integer>> ans = new ArrayList<>();
+        dfs(n, k, 1, ans, new ArrayList<>());
+        return ans;
+    }
+
+    public void dfs(int n, int k, int index, List<List<Integer>> ans, List<Integer> list) {
+        if (list.size() == k) {
+            ans.add(new ArrayList<>(list));
+            return;
+        }
+        for (int i = index; i <= n; i++) {
+            list.add(i);
+            dfs(n, k, i + 1, ans, list);
+            list.remove(list.size() - 1);
+        }
+    }
 }
