@@ -63,4 +63,26 @@ public class Combination_Sum_III {
             list.remove(list.size() - 1);
         }
     }
+
+
+    // 三刷
+    public List<List<Integer>> combinationSum3_3(int k, int n) {
+        List<List<Integer>> ans = new ArrayList<>();
+        traversal(k, n, 1, 0, new ArrayList<>(), ans);
+        return ans;
+    }
+
+    public void traversal(int k, int n, int start, int sum, List<Integer> list, List<List<Integer>> ans) {
+        if (list.size() == k) {
+            if (sum == n) {
+                ans.add(new ArrayList<>(list));
+            }
+            return;
+        }
+        for (int i = start; i <= 9; i++) {
+            list.add(i);
+            traversal(k, n, i + 1, sum + i, list, ans);
+            list.remove(list.size() - 1);
+        }
+    }
 }
