@@ -50,4 +50,21 @@ public class Subsets {
             list.remove(list.size() - 1);
         }
     }
+
+
+    // 三刷
+    public List<List<Integer>> subsets_3(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        dfs(nums, 0, ans, new ArrayList<>());
+        return ans;
+    }
+
+    public void dfs(int[] nums, int index, List<List<Integer>> ans, List<Integer> list) {
+        ans.add(new ArrayList<>(list));
+        for (int i = index; i < nums.length; i++) {
+            list.add(nums[i]);
+            dfs(nums, i + 1, ans, list);
+            list.remove(list.size() - 1);
+        }
+    }
 }
