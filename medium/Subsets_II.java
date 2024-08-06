@@ -46,4 +46,22 @@ public class Subsets_II {
             list.remove(list.size() - 1);
         }
     }
+
+
+    // 二刷
+    public List<List<Integer>> subsetsWithDup_3(int[] nums) {
+        Arrays.sort(nums);
+        Set<List<Integer>> set = new HashSet<>();
+        traversal(nums, 0, set, new ArrayList<>());
+        return new ArrayList<>(set);
+    }
+
+    private void traversal(int[] nums, int index, Set<List<Integer>> set, List<Integer> list) {
+        set.add(new ArrayList<>(list));
+        for (int i = index; i < nums.length; i++) {
+            list.add(nums[i]);
+            traversal(nums, i + 1, set, list);
+            list.remove(list.size() - 1);
+        }
+    }
 }
