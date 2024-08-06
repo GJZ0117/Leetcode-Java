@@ -1,8 +1,6 @@
 package medium;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * 40. Combination Sum II
@@ -39,7 +37,7 @@ public class Combination_Sum_II {
             ans.add(new ArrayList<>(list));
         } else {
             for (int i = start; i <= endIndex; i++) {
-                if (i > start && candidates[i] == candidates[i - 1]) { //skip duplicates
+                if (i > start && candidates[i] == candidates[i - 1]) { // skip duplicates
                     continue;
                 }
                 list.add(candidates[i]);
@@ -71,6 +69,31 @@ public class Combination_Sum_II {
                 }
                 list.add(candidates[i]);
                 dfs(res, candidates, target, i + 1, curSum + candidates[i], list);
+                list.remove(list.size() - 1);
+            }
+        }
+    }
+
+    // 三刷
+    public List<List<Integer>> combinationSum2_3(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        List<List<Integer>> ans = new ArrayList<>();
+        traversal(candidates, 0, 0, target, ans, new ArrayList<>());
+        return ans;
+    }
+
+    public void traversal(int[] candidates, int index, int curSum, int target, List<List<Integer>> ans, List<Integer> list) {
+        if (curSum > target) {
+            return;
+        } else if (curSum == target) {
+            ans.add(new ArrayList<>(list));
+        } else {
+            for (int i = index; i < candidates.length; i++) {
+                if (i > index && candidates[i] == candidates[i - 1]) {
+                    continue;
+                }
+                list.add(candidates[i]);
+                traversal(candidates, i + 1, curSum + candidates[i], target, ans, list);
                 list.remove(list.size() - 1);
             }
         }
