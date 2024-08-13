@@ -32,14 +32,14 @@ public class Binary_Tree_Level_Order_Traversal {
             return list;
         }
 
-        List<TreeNode> queue = new ArrayList<>(); //队列用于层次遍历二叉树保存节点
+        List<TreeNode> queue = new ArrayList<>(); // 队列用于层次遍历二叉树保存节点
         queue.add(root);
-        int len; //记录每一层节点个数
+        int len; // 记录每一层节点个数
         TreeNode p;
 
         while (!queue.isEmpty()) {
-            len = queue.size(); //某层节点数
-            List<Integer> tempList = new ArrayList<>(); //保存每层节点的数值
+            len = queue.size(); // 某层节点数
+            List<Integer> tempList = new ArrayList<>(); // 保存每层节点的数值
             while (len > 0) {
                 p = queue.get(0);
                 tempList.add(p.val);
@@ -87,5 +87,34 @@ public class Binary_Tree_Level_Order_Traversal {
             list.clear();
         }
         return res;
+    }
+
+
+    // 三刷
+    public List<List<Integer>> levelOrder_3(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (root == null) {
+            return ans;
+        }
+        Deque<TreeNode> queue = new ArrayDeque<>();
+        List<Integer> list = new ArrayList<>();
+        queue.addLast(root);
+        while (!queue.isEmpty()) {
+            int len = queue.size();
+            while (len > 0) {
+                TreeNode node = queue.removeFirst();
+                list.add(node.val);
+                if (node.left != null) {
+                    queue.addLast(node.left);
+                }
+                if (node.right != null) {
+                    queue.addLast(node.right);
+                }
+                len--;
+            }
+            ans.add(new ArrayList<>(list));
+            list.clear();
+        }
+        return ans;
     }
 }
