@@ -90,4 +90,29 @@ public class Populating_Next_Right_Pointers_in_Each_Node_II {
         }
         return root;
     }
+
+
+    // 四刷
+    public Node connect_4(Node root) {
+        if (root == null) {
+            return null;
+        }
+        Deque<Node> queue = new ArrayDeque<>();
+        queue.addLast(root);
+        while (!queue.isEmpty()) {
+            int len = queue.size();
+            while (len > 0) {
+                len--;
+                Node cur = queue.removeFirst();
+                cur.next = len == 0 ? null : queue.peekFirst();
+                if (cur.left != null) {
+                    queue.addLast(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.addLast(cur.right);
+                }
+            }
+        }
+        return root;
+    }
 }
