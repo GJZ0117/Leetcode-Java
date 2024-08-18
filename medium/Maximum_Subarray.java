@@ -27,4 +27,25 @@ public class Maximum_Subarray {
         return maxSum;
     }
 
+    // 二刷
+    public int maxSubArray_2(int[] nums) {
+        int maxNum = Integer.MIN_VALUE;
+        for (int num : nums) {
+            maxNum = Math.max(maxNum, num);
+        }
+        if (maxNum <= 0) {
+            return maxNum;
+        }
+        int curSum = 0;
+        int ans = 0;
+        for (int num : nums) {
+            if (curSum >= 0) {
+                curSum += num;
+            } else {
+                curSum = num;
+            }
+            ans = Math.max(ans, curSum);
+        }
+        return ans;
+    }
 }
