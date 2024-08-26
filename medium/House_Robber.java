@@ -37,4 +37,17 @@ public class House_Robber {
         }
         return Math.max(dp[nums.length][0], dp[nums.length][1]);
     }
+
+
+    // 二刷
+    public int rob_2(int[] nums) {
+        int pre = 0;
+        int cur = 0;
+        for (int num : nums) {
+            int temp = Math.max(cur, pre + num);
+            pre = cur;
+            cur = temp;
+        }
+        return cur;
+    }
 }
